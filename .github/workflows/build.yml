@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -49,3 +52,21 @@ jobs:
           name: powerfit-apk
           path: bin/*.apk
           if-no-files-found: ignore
+
+      - name: Create Release
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: Power Fit v1.0.0
+          body: |
+            Power Fit - App de Treinos para Android
+            
+            Como instalar:
+            1. Baixe o arquivo PowerFit.apk
+            2. No celular, va em Configuracoes > Seguranca
+            3. Ative "Fontes desconhecidas"
+            4. Abra o arquivo APK e instale
+          files: bin/*.apk
+          draft: false
+          prerelease: false
