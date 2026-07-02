@@ -1,4 +1,6 @@
 # Power Fit - App de Treinos para Smartphone
+[app]
+
 title = Power Fit
 
 package.name = powerfit
@@ -30,10 +32,7 @@ android.arch = arm64-v8a
 
 # Splash screen
 presplash.filename = %(source.dir)s/presplash.png
-
-# Preuloading
-presplash.color = 0.07, 0.07, 0.07, 1
-presplash.color_rgba = rgba("#121212ff")
+presplash.color = 0.07,0.07,0.07,1
 
 # Logs
 log_level = 2
