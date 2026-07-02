@@ -10,63 +10,48 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Set up Java 17
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
-      - name: Install buildozer
-        run: pip install buildozer
-
-      - name: Cache buildozer
-        uses: actions/cache@v4
-        with:
-          path: ~/.buildozer
-          key: buildozer-${{ hashFiles('buildozer.spec') }}
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Build APK
-        env:
-          JAVA_HOME: ${{ env.JAVA_HOME }}
-        run: yes | buildozer android debug 2>&1
+        run: ./gradlew assembleDebug
 
-      - name: Upload APK
-        if: always()
+      - name: Copy APK to root
+        run: cp app/build/outputs/apk/debug/app-debug.apk ./PowerFit.apk
+
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: powerfit-apk
-          path: bin/*.apk
-          if-no-files-found: ignore
+          path: PowerFit.apk
 
       - name: Create Release
-        if: success()
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: Power Fit v1.0.0
+          tag_name: v1.0.${{ github.run_number }}
+          name: Power Fit v1.0.${{ github.run_number }}
           body: |
             Power Fit - App de Treinos para Android
-            
+
             Como instalar:
             1. Baixe o arquivo PowerFit.apk
-            2. No celular, va em Configuracoes > Seguranca
+            2. No celular va em Configuracoes > Seguranca
             3. Ative "Fontes desconhecidas"
             4. Abra o arquivo APK e instale
-          files: bin/*.apk
+          files: PowerFit.apk
           draft: false
           prerelease: false

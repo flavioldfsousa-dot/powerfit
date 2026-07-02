@@ -1,16 +1,15 @@
 # Power Fit - App de Treinos
 
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.egg-info/
-dist/
-build/
-.env
-.venv/
-venv/
-data/
-*.json
-!data/.gitkeep
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/app/build
+*.apk
+!PowerFit.apk
