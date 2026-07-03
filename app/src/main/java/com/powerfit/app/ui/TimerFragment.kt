@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.powerfit.app.R
@@ -22,6 +23,11 @@ class TimerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<ImageButton>(R.id.btnVoltar).setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        view.findViewById<TextView>(R.id.txtTituloHeader).text = "TIMER"
 
         val txtTempo = view.findViewById<TextView>(R.id.txtTempo)
         val btnIniciar = view.findViewById<Button>(R.id.btnIniciar)

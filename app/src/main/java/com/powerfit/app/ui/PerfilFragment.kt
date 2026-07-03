@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.powerfit.app.R
@@ -19,6 +20,11 @@ class PerfilFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<ImageButton>(R.id.btnVoltar).setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        view.findViewById<TextView>(R.id.txtTituloHeader).text = "PERFIL"
 
         val usuario = DatabaseHelper.carregar(requireContext())
         val inputNome = view.findViewById<EditText>(R.id.inputNomePerfil)

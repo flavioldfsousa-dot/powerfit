@@ -19,6 +19,8 @@ class CadastroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        view.findViewById<TextView>(R.id.txtTituloHeader).text = "POWER FIT"
+
         val inputNome = view.findViewById<EditText>(R.id.inputNome)
         val inputPeso = view.findViewById<EditText>(R.id.inputPeso)
         val inputAltura = view.findViewById<EditText>(R.id.inputAltura)

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_header" />
+
+    <ScrollView
+        android:id="@+id/scrollChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/containerChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@color/card">
+
+        <EditText
+            android:id="@+id/inputMensagem"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_input"
+            android:hint="Pergunte ao assistente..."
+            android:textColor="@color/texto"
+            android:textColorHint="@color/texto"
+            android:textSize="15sp"
+            android:padding="12dp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionSend"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_btn"
+            android:text=">"
+            android:textColor="@color/accent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

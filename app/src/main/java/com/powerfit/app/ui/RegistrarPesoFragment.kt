@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -23,6 +24,11 @@ class RegistrarPesoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<ImageButton>(R.id.btnVoltar).setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        view.findViewById<TextView>(R.id.txtTituloHeader).text = "REGISTRAR PESO"
 
         val inputPeso = view.findViewById<EditText>(R.id.inputPeso)
         val btnSalvar = view.findViewById<Button>(R.id.btnSalvarPeso)

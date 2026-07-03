@@ -3,64 +3,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include layout="@layout/layout_header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ATUALIZAR PERFIL"
-        android:textColor="@color/titulo"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <EditText
-        android:id="@+id/inputNomePerfil"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_input"
-        android:hint="Nome"
-        android:textColor="@color/texto"
-        android:textColorHint="@color/texto"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:inputType="textPersonName"
-        android:layout_marginBottom="12dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ATUALIZAR PERFIL"
+            android:textColor="@color/titulo"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
 
-    <EditText
-        android:id="@+id/inputPesoPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_input"
-        android:hint="Peso (kg)"
-        android:textColor="@color/texto"
-        android:textColorHint="@color/texto"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="12dp" />
+        <EditText
+            android:id="@+id/inputNomePerfil"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_input"
+            android:hint="Nome"
+            android:textColor="@color/texto"
+            android:textColorHint="@color/texto"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp" />
 
-    <EditText
-        android:id="@+id/inputAlturaPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_input"
-        android:hint="Altura (m)"
-        android:textColor="@color/texto"
-        android:textColorHint="@color/texto"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="24dp" />
+        <EditText
+            android:id="@+id/inputPesoPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_input"
+            android:hint="Peso (kg)"
+            android:textColor="@color/texto"
+            android:textColorHint="@color/texto"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="12dp" />
 
-    <Button
-        android:id="@+id/btnSalvarPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_btn"
-        android:text="SALVAR"
-        android:textColor="@color/texto"
-        android:textSize="16sp" />
+        <EditText
+            android:id="@+id/inputAlturaPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_input"
+            android:hint="Altura (m)"
+            android:textColor="@color/texto"
+            android:textColorHint="@color/texto"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="24dp" />
 
+        <Button
+            android:id="@+id/btnSalvarPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_btn"
+            android:text="SALVAR"
+            android:textColor="@color/texto"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 </LinearLayout>

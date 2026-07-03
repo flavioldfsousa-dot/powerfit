@@ -3,47 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REGISTRAR PESO"
-        android:textColor="@color/titulo"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp" />
+    <include layout="@layout/layout_header" />
 
-    <EditText
-        android:id="@+id/inputPeso"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_input"
-        android:hint="Peso atual (kg)"
-        android:textColor="@color/texto"
-        android:textColorHint="@color/texto"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="16dp" />
-
-    <Button
-        android:id="@+id/btnSalvarPeso"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_btn"
-        android:text="SALVAR"
-        android:textColor="@color/texto"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:id="@+id/txtStatus"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/verde"
-        android:textSize="14sp" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGISTRAR PESO"
+            android:textColor="@color/titulo"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <EditText
+            android:id="@+id/inputPeso"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_input"
+            android:hint="Peso atual (kg)"
+            android:textColor="@color/texto"
+            android:textColorHint="@color/texto"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:inputType="numberDecimal"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnSalvarPeso"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_btn"
+            android:text="SALVAR"
+            android:textColor="@color/texto"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/verde"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 </LinearLayout>

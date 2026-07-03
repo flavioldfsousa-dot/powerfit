@@ -9,8 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.powerfit.app.R
 import com.powerfit.app.data.DatabaseHelper
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MenuFragment : Fragment() {
 
@@ -37,36 +35,24 @@ class MenuFragment : Fragment() {
         txtInfo.text = "Peso: ${usuario.peso}kg | IMC: ${"%.1f".format(imc)} ($classe) | $objetivoLabel"
 
         val botoes = mapOf(
-            R.id.btnTreinoDia to "Treino do dia",
-            R.id.btnTreinoSemana to "Treino da semana",
-            R.id.btnTimer to "Treinar com timer",
-            R.id.btnHistorico to "Historico de treinos",
-            R.id.btnRegistrarPeso to "Registrar peso",
-            R.id.btnEvolucao to "Evolucao do peso",
-            R.id.btnVerImc to "Ver IMC",
-            R.id.btnAtualizarPerfil to "Atualizar perfil"
+            R.id.btnTreinoDia to TreinoDiaFragment(),
+            R.id.btnTreinoSemana to TreinoSemanaFragment(),
+            R.id.btnTimer to TimerFragment(),
+            R.id.btnHistorico to HistoricoFragment(),
+            R.id.btnRegistrarPeso to RegistrarPesoFragment(),
+            R.id.btnEvolucao to EvolucaoPesoFragment(),
+            R.id.btnVerImc to ImcFragment(),
+            R.id.btnAtualizarPerfil to PerfilFragment(),
+            R.id.btnAssistente to AssistenteFragment()
         )
 
-        botoes.forEach { (id, _) ->
+        botoes.forEach { (id, fragment) ->
             view.findViewById<Button>(id)?.setOnClickListener {
-                when (id) {
-                    R.id.btnTreinoDia -> navigateTo(TreinoDiaFragment())
-                    R.id.btnTreinoSemana -> navigateTo(TreinoSemanaFragment())
-                    R.id.btnTimer -> navigateTo(TimerFragment())
-                    R.id.btnHistorico -> navigateTo(HistoricoFragment())
-                    R.id.btnRegistrarPeso -> navigateTo(RegistrarPesoFragment())
-                    R.id.btnEvolucao -> navigateTo(EvolucaoPesoFragment())
-                    R.id.btnVerImc -> navigateTo(ImcFragment())
-                    R.id.btnAtualizarPerfil -> navigateTo(CadastroFragment())
-                }
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
-    }
-
-    private fun navigateTo(fragment: Fragment) {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 }
