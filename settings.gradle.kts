@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PowerFit"
+rootProject.name = "ZentroxFit"
 include(":app")

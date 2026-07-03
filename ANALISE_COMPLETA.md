@@ -1,4 +1,4 @@
-# ANALISE COMPLETA DO SISTEMA - POWER FIT
+# ANALISE COMPLETA DO SISTEMA - ZENTROX FIT
 
 **Data:** 02/07/2026
 **Analista:** Senior de Desenvolvimento de Sistemas

@@ -31,27 +31,27 @@ jobs:
         run: gradle assembleDebug
 
       - name: Copy APK to root
-        run: cp app/build/outputs/apk/debug/app-debug.apk ./PowerFit.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk ./ZentroxFit.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: powerfit-apk
-          path: PowerFit.apk
+          name: zentroxfit-apk
+          path: ZentroxFit.apk
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: Power Fit v1.0.${{ github.run_number }}
+          tag_name: v2.0.${{ github.run_number }}
+          name: Zentrox Fit v2.0.${{ github.run_number }}
           body: |
-            Power Fit - App de Treinos para Android
+            Zentrox Fit - App de Treinos para Android
 
             Como instalar:
-            1. Baixe o arquivo PowerFit.apk
+            1. Baixe o arquivo ZentroxFit.apk
             2. No celular va em Configuracoes > Seguranca
             3. Ative "Fontes desconhecidas"
             4. Abra o arquivo APK e instale
-          files: PowerFit.apk
+          files: ZentroxFit.apk
           draft: false
           prerelease: false

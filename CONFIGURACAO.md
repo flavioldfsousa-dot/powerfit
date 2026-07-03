@@ -1,4 +1,4 @@
-# Power Fit - Configuracao do Projeto
+# Zentrox Fit - Configuracao do Projeto
 
 ## GitHub
 - **Repositorio:** https://github.com/flavioldfsousa-dot/powerfit
@@ -9,75 +9,70 @@
 
 ```
 projeto 001/
-├── main.py              # App mobile (Kivy) - Android APK
-├── app.py               # App CLI (terminal)
-├── gui.py               # App desktop (customtkinter)
-├── exercicios.py        # Banco de exercicios (dados)
-├── config.py            # Configuracoes do projeto
-├── database.py          # Persistencia JSON
-├── buildozer.spec       # Config para gerar APK Android
-├── requirements.txt     # Dependencias Python
-├── .gitignore           # Arquivos ignorados pelo git
-├── .github/workflows/
-│   └── build.yml        # GitHub Actions (gera APK automatico)
-├── setup.sh             # Script de configuracao
-├── presplash.png        # Splash screen (512x512)
-├── icon.png             # Icone do app (512x512)
-└── data/                # Pasta de dados do usuario
+├── app/src/main/java/com/powerfit/app/
+│   ├── SplashActivity.kt          # Tela de splash animada
+│   ├── MainActivity.kt            # Activity principal
+│   ├── data/
+│   │   ├── DatabaseHelper.kt      # Persistencia SharedPreferences
+│   │   ├── Exercicios.kt          # Banco de exercicios (90 exercicios)
+│   │   └── AssistenteIA.kt        # Assistente IA offline
+│   └── ui/
+│       ├── CadastroFragment.kt    # Cadastro do usuario
+│       ├── MenuFragment.kt        # Menu principal
+│       ├── TreinoDiaFragment.kt   # Treino do dia
+│       ├── TreinoSemanaFragment.kt# Plano semanal
+│       ├── TimerFragment.kt       # Timer de treino
+│       ├── HistoricoFragment.kt   # Historico
+│       ├── RegistrarPesoFragment.kt# Registrar peso
+│       ├── EvolucaoPesoFragment.kt# Evolucao do peso
+│       ├── ImcFragment.kt         # Calculo de IMC
+│       ├── PerfilFragment.kt      # Perfil do usuario
+│       └── AssistenteFragment.kt  # Chat com IA
+├── app/src/main/res/
+│   ├── layout/                    # 13 layouts XML modernos
+│   ├── drawable/                  # 15 drawables (cards, botoes, icones)
+│   ├── anim/                      # 7 animacoes
+│   ├── color/                     # Color state list
+│   ├── menu/                      # Menu de navegacao
+│   └── mipmap-*/                  # Icones do app
+├── .github/workflows/build.yml    # GitHub Actions (gera APK)
+└── app/build.gradle.kts           # Config Gradle
 ```
-
-## Como Usar
-
-### App CLI (terminal)
-```bash
-python3 app.py
-```
-
-### App Desktop (janela)
-```bash
-python3 gui.py
-```
-
-### App Mobile (Kivy - testar no Mac)
-```bash
-~/.pyenv/versions/3.13.14/bin/python3 main.py
-```
-
-### Gerar APK Android
-O APK e gerado automaticamente via GitHub Actions.
-Acesse: https://github.com/flavioldfsousa-dot/powerfit/actions
-
-Para gerar manualmente (requer Linux):
-```bash
-buildozer android debug
-```
-
-## Funcionalidades
-
-| # | Funcao | CLI | GUI | Mobile |
-|---|--------|-----|-----|--------|
-| 1 | Treino do dia | OK | OK | OK |
-| 2 | Treino da semana | OK | OK | OK |
-| 3 | Timer de descanso | OK | - | OK |
-| 4 | Registrar treino | OK | OK | - |
-| 5 | Historico | OK | OK | OK |
-| 6 | Registrar peso | OK | OK | OK |
-| 7 | Evolucao do peso | OK | OK | OK |
-| 8 | Ver IMC | OK | OK | OK |
-| 9 | Atualizar perfil | OK | OK | OK |
 
 ## Stack Tecnico
 
-- **Python 3.13** (para Kivy)
-- **Python 3.14** (para CLI/GUI)
-- **Kivy 2.3.1** (framework mobile)
-- **customtkinter** (interface desktop)
-- **Buildozer** (gerador de APK)
-- **GitHub Actions** (CI/CD na nuvem)
+- **Kotlin** (linguagem principal)
+- **Gradle 8.5** (sistema de build)
+- **Material Design 3** (componentes UI)
+- **SharedPreferences + Gson** (persistencia)
+- **GitHub Actions** (CI/CD)
 
-## Historico de Commits
+## Funcionalidades
 
-1. Power Fit v1.0 - App de Treinos
-2. Fix buildozer.spec - add [app] section
-3. Fix buildozer - API 31, cache, kivy pinned
-4. Fix Java 17 for Gradle
+| # | Funcao | Status |
+|---|--------|--------|
+| 1 | Splash screen animada | OK |
+| 2 | Cadastro de perfil | OK |
+| 3 | Menu principal moderno | OK |
+| 4 | Treino do dia com cards | OK |
+| 5 | 90 exercicios com alternativas | OK |
+| 6 | Plano semanal | OK |
+| 7 | Timer de treino | OK |
+| 8 | Historico de treinos | OK |
+| 9 | Registro de peso | OK |
+| 10 | Evolucao do peso | OK |
+| 11 | Calculo de IMC | OK |
+| 12 | Atualizar perfil | OK |
+| 13 | Assistente IA offline | OK |
+| 14 | Navegacao com back button | OK |
+
+## Como Gerar APK
+
+O APK e gerado automaticamente via GitHub Actions.
+Acesse: https://github.com/flavioldfsousa-dot/powerfit/actions
+
+## Historico
+
+1. Zentrox Fit v2.0 - Redesign completo + splash + 90 exercicios
+2. Zentrox Fit v1.1 - Assistente IA + back button
+3. Zentrox Fit v1.0 - App nativo Android (Kotlin + Gradle)

@@ -1,4 +1,4 @@
-# Power Fit - App de Treinos
+# Zentrox Fit - App de Treinos
 
 *.iml
 .gradle
@@ -12,4 +12,4 @@
 local.properties
 /app/build
 *.apk
-!PowerFit.apk
+!ZentroxFit.apk
