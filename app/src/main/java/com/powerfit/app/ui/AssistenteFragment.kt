@@ -16,6 +16,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.powerfit.app.MainActivity
 import com.powerfit.app.R
 import com.powerfit.app.data.AssistenteIA
 

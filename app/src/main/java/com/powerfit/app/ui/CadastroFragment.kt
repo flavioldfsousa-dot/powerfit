@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.powerfit.app.MainActivity
 import com.powerfit.app.R
 import com.powerfit.app.data.DatabaseHelper
 import com.powerfit.app.data.Usuario
@@ -46,9 +47,8 @@ class CadastroFragment : Fragment() {
             if (nome.isNotEmpty() && peso > 0 && altura > 0) {
                 val usuario = Usuario(nome, peso, altura, objetivo)
                 DatabaseHelper.salvar(requireContext(), usuario)
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, MenuFragment())
-                    .commit()
+                (requireActivity() as MainActivity).navigateTo(MenuFragment())
+                (requireActivity() as MainActivity).showBottomNav()
             }
         }
     }

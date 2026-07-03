@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.powerfit.app.MainActivity
 import com.powerfit.app.R
 import com.powerfit.app.data.DatabaseHelper
 import com.powerfit.app.data.Exercicios
@@ -58,11 +59,10 @@ class MenuFragment : Fragment() {
         val musculosHoje = Exercicios.splitSemanal[diaKey]?.joinToString(", ") { it.uppercase() } ?: "Descanso"
         view.findViewById<TextView>(R.id.txtGruposMusculares).text = musculosHoje
 
+        val mainActivity = requireActivity() as MainActivity
+
         view.findViewById<Button>(R.id.btnComecarTreino).setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, TreinoDiaFragment())
-                .addToBackStack(null)
-                .commit()
+            mainActivity.navigateTo(TreinoDiaFragment())
         }
 
         val navMap = mapOf(
@@ -78,10 +78,7 @@ class MenuFragment : Fragment() {
 
         navMap.forEach { (id, fragment) ->
             view.findViewById<View>(id)?.setOnClickListener {
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit()
+                mainActivity.navigateTo(fragment)
             }
         }
     }
