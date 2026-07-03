@@ -1,67 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#05050A"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:background="#05050A">
 
+    <!-- Fitness couple with lightning background -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_splash_fitness"
+        android:alpha="0.6" />
+
+    <!-- Gradient overlay -->
     <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_splash_gradient" />
 
-    <FrameLayout
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <View
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:background="@drawable/bg_splash_logo" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
+        <!-- Logo Z -->
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_splash_logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Z"
+                android:textColor="#FFFFFF"
+                android:textSize="42sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <!-- Title -->
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Z"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:letterSpacing="0.2"
+            android:text="ZENTROX FIT"
             android:textColor="#FFFFFF"
-            android:textSize="48sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
-    </FrameLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:letterSpacing="0.15"
-        android:text="ZENTROX FIT"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:letterSpacing="0.3"
+            android:text="TRANSFORME SEU CORPO"
+            android:textColor="#FF2D55"
+            android:textSize="14sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:letterSpacing="0.3"
-        android:text="TRANSFORME SEU CORPO"
-        android:textColor="#8888A0"
-        android:textSize="14sp" />
+        <!-- Tagline -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:letterSpacing="0.15"
+            android:text="Seu personal trainer digital"
+            android:textColor="#8888A0"
+            android:textSize="12sp" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="60dp"
-        android:layout_height="2dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="80dp"
-        android:indeterminate="true"
-        android:indeterminateTint="#FF2D55" />
+        <!-- Loading bar -->
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="60dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="60dp"
+            android:indeterminate="true"
+            android:indeterminateTint="#FF2D55" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

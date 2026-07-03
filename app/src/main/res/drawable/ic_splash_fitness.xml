@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="400dp"
+    android:viewportWidth="400"
+    android:viewportHeight="400">
+    
+    <!-- Background gradient -->
+    <path
+        android:pathData="M0,0 L400,0 L400,400 L0,400 Z"
+        android:fillColor="#0A0A0F"/>
+    
+    <!-- Lightning bolt 1 - left -->
+    <path
+        android:pathData="M80,50 L100,120 L85,120 L110,200 L90,200 L120,300 L105,300 L140,400 L130,400 L160,300 L145,300 L175,200 L155,200 L185,120 L170,120 L195,50 Z"
+        android:fillColor="#FF2D55"
+        android:fillAlpha="0.8"/>
+    
+    <!-- Lightning bolt 2 - right -->
+    <path
+        android:pathData="M250,30 L270,100 L255,100 L280,180 L260,180 L290,280 L275,280 L310,400 L300,400 L330,280 L315,280 L345,180 L325,180 L355,100 L340,100 L365,30 Z"
+        android:fillColor="#7C4DFF"
+        android:fillAlpha="0.7"/>
+    
+    <!-- Lightning bolt 3 - center small -->
+    <path
+        android:pathData="M180,100 L195,150 L185,150 L205,200 L190,200 L210,280 L200,280 L220,350 L215,350 L235,280 L225,280 L245,200 L230,200 L250,150 L240,150 L255,100 Z"
+        android:fillColor="#00E5FF"
+        android:fillAlpha="0.6"/>
+    
+    <!-- Man silhouette - left -->
+    <path
+        android:pathData="M100,280 C100,280 95,260 95,240 C95,220 105,210 110,200 C115,190 110,180 110,180 C110,175 115,165 120,160 C125,155 130,155 135,160 C140,165 145,175 145,180 C145,180 140,190 145,200 C150,210 160,220 160,240 C160,260 155,280 155,280 L155,350 L145,350 L145,320 L135,320 L135,350 L125,350 L125,320 L115,320 L115,350 L105,350 L105,280 Z"
+        android:fillColor="#FF2D55"
+        android:fillAlpha="0.9"/>
+    
+    <!-- Man head -->
+    <path
+        android:pathData="M115,145 C115,135 120,125 130,125 C140,125 145,135 145,145 C145,155 140,165 130,165 C120,165 115,155 115,145 Z"
+        android:fillColor="#FF2D55"
+        android:fillAlpha="0.9"/>
+    
+    <!-- Man arm left -->
+    <path
+        android:pathData="M95,200 C85,210 75,230 80,250 C85,270 95,280 100,280"
+        android:strokeColor="#FF2D55"
+        android:strokeWidth="12"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <!-- Man arm right -->
+    <path
+        android:pathData="M155,200 C165,210 175,230 170,250 C165,270 155,280 150,280"
+        android:strokeColor="#FF2D55"
+        android:strokeWidth="12"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <!-- Woman silhouette - right -->
+    <path
+        android:pathData="M240,280 C240,280 235,260 235,240 C235,220 245,210 250,200 C255,190 250,180 250,180 C250,175 255,165 260,160 C265,155 270,155 275,160 C280,165 285,175 285,180 C285,180 280,190 285,200 C290,210 300,220 300,240 C300,260 295,280 295,280 L295,350 L285,350 L285,320 L275,320 L275,350 L265,350 L265,320 L255,320 L255,350 L245,350 L245,280 Z"
+        android:fillColor="#7C4DFF"
+        android:fillAlpha="0.9"/>
+    
+    <!-- Woman head -->
+    <path
+        android:pathData="M255,145 C255,135 260,125 270,125 C280,125 285,135 285,145 C285,155 280,165 270,165 C260,165 255,155 255,145 Z"
+        android:fillColor="#7C4DFF"
+        android:fillAlpha="0.9"/>
+    
+    <!-- Woman arm left -->
+    <path
+        android:pathData="M235,200 C225,210 215,230 220,250 C225,270 235,280 240,280"
+        android:strokeColor="#7C4DFF"
+        android:strokeWidth="12"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <!-- Woman arm right -->
+    <path
+        android:pathData="M295,200 C305,210 315,230 310,250 C305,270 295,280 290,280"
+        android:strokeColor="#7C4DFF"
+        android:strokeWidth="12"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <!-- Energy particles -->
+    <path
+        android:pathData="M50,150 L55,155 L50,160 L55,165 L50,170"
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <path
+        android:pathData="M350,120 L355,125 L350,130 L355,135 L350,140"
+        android:strokeColor="#FF2D55"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <path
+        android:pathData="M180,80 L185,85 L180,90 L185,95 L180,100"
+        android:strokeColor="#7C4DFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <path
+        android:pathData="M220,320 L225,325 L220,330 L225,335 L220,340"
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+    
+    <!-- Glow effects -->
+    <path
+        android:pathData="M130,200 C130,200 125,190 130,180 C135,170 140,180 140,190 C140,200 135,210 130,200 Z"
+        android:fillColor="#FF2D55"
+        android:fillAlpha="0.3"/>
+    
+    <path
+        android:pathData="M270,200 C270,200 265,190 270,180 C275,170 280,180 280,190 C280,200 275,210 270,200 Z"
+        android:fillColor="#7C4DFF"
+        android:fillAlpha="0.3"/>
+    
+</vector>
