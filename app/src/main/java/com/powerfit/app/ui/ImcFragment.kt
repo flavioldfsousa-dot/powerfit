@@ -1,12 +1,16 @@
 package com.powerfit.app.ui
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.powerfit.app.R
 import com.powerfit.app.data.DatabaseHelper
@@ -29,33 +33,83 @@ class ImcFragment : Fragment() {
         val usuario = DatabaseHelper.carregar(requireContext())
         val (imc, classe) = DatabaseHelper.calcularImc(usuario.peso, usuario.altura)
 
+        val cardDisplay = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
+            background = ContextCompat.getDrawable(context, R.drawable.bg_card_highlight)
+            setPadding(dpToPx(24), dpToPx(32), dpToPx(24), dpToPx(32))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                bottomMargin = dpToPx(16)
+            }
+            gravity = Gravity.CENTER
+        }
+
         val txtImc = TextView(requireContext()).apply {
             text = "%.1f".format(imc)
-            setTextColor(resources.getColor(R.color.accent, null))
-            textSize = 48f
-            setPadding(0, 24, 0, 8)
+            setTextColor(Color.WHITE)
+            textSize = 56f
+            typeface = Typeface.DEFAULT_BOLD
+            gravity = Gravity.CENTER
         }
-        container.addView(txtImc)
+        cardDisplay.addView(txtImc)
 
         val txtClasse = TextView(requireContext()).apply {
             text = classe
-            setTextColor(resources.getColor(R.color.texto, null))
+            setTextColor(ContextCompat.getColor(context, R.color.accent))
             textSize = 18f
-            setPadding(0, 8, 0, 16)
+            typeface = Typeface.DEFAULT_BOLD
+            gravity = Gravity.CENTER
+            setPadding(0, dpToPx(8), 0, 0)
         }
-        container.addView(txtClasse)
+        cardDisplay.addView(txtClasse)
 
-        val info = TextView(requireContext()).apply {
-            text = "Peso: ${usuario.peso}kg\nAltura: ${usuario.altura}m\n\n" +
-                    "Referencia:\n" +
-                    "Abaixo de 18.5 - Abaixo do peso\n" +
-                    "18.5 a 24.9 - Peso normal\n" +
-                    "25.0 a 29.9 - Sobrepeso\n" +
-                    "30.0 ou mais - Obesidade"
-            setTextColor(resources.getColor(R.color.texto, null))
-            textSize = 13f
-            setPadding(0, 8, 0, 0)
+        container.addView(cardDisplay)
+
+        val cardInfo = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
+            background = ContextCompat.getDrawable(context, R.drawable.bg_card)
+            setPadding(dpToPx(16), dpToPx(16), dpToPx(16), dpToPx(16))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                bottomMargin = dpToPx(12)
+            }
         }
-        container.addView(info)
+
+        val txtPesoAltura = TextView(requireContext()).apply {
+            text = "Peso: ${usuario.peso}kg | Altura: ${usuario.altura}m"
+            setTextColor(ContextCompat.getColor(context, R.color.texto))
+            textSize = 14f
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { bottomMargin = dpToPx(16) }
+        }
+        cardInfo.addView(txtPesoAltura)
+
+        val referencias = listOf(
+            "Abaixo de 18.5 - Abaixo do peso",
+            "18.5 a 24.9 - Peso normal",
+            "25.0 a 29.9 - Sobrepeso",
+            "30.0 ou mais - Obesidade"
+        )
+        for (ref in referencias) {
+            val txtRef = TextView(requireContext()).apply {
+                text = ref
+                setTextColor(ContextCompat.getColor(context, R.color.texto_secundario))
+                textSize = 13f
+                setPadding(dpToPx(8), 0, 0, dpToPx(4))
+            }
+            cardInfo.addView(txtRef)
+        }
+
+        container.addView(cardInfo)
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
     }
 }

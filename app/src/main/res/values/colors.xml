@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg">#121212</color>
-    <color name="card">#1E1E1E</color>
-    <color name="card2">#2A2A2A</color>
-    <color name="texto">#E0E0E0</color>
-    <color name="titulo">#FF4757</color>
-    <color name="btn">#2D2D2D</color>
-    <color name="btn_pressed">#3D3D3D</color>
-    <color name="accent">#4FC3F7</color>
-    <color name="verde">#66BB6A</color>
-    <color name="amarelo">#FFD54F</color>
+    <color name="bg">#0A0A0F</color>
+    <color name="bg_gradient_start">#0A0A0F</color>
+    <color name="bg_gradient_end">#1A0A1F</color>
+    <color name="card">#14141E</color>
+    <color name="card2">#1C1C2A</color>
+    <color name="card_highlight">#1E1E30</color>
+    <color name="texto">#E8E8F0</color>
+    <color name="texto_secundario">#8888A0</color>
+    <color name="titulo">#FF2D55</color>
+    <color name="accent">#00E5FF</color>
+    <color name="accent2">#7C4DFF</color>
+    <color name="accent3">#00E676</color>
+    <color name="btn">#1A1A2E</color>
+    <color name="btn_pressed">#252540</color>
+    <color name="gradient_start">#FF2D55</color>
+    <color name="gradient_end">#FF6B35</color>
+    <color name="gradient_cool_start">#00E5FF</color>
+    <color name="gradient_cool_end">#7C4DFF</color>
+    <color name="verde">#00E676</color>
+    <color name="amarelo">#FFD740</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="sombra">#40000000</color>
+    <color name="ripple">#20FF2D55</color>
+    <color name="splash_bg">#05050A</color>
 </resources>

@@ -8,14 +8,13 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.powerfit.app.R
 import com.powerfit.app.data.AssistenteIA
@@ -55,12 +54,12 @@ class AssistenteFragment : Fragment() {
 
         adicionarMensagemBot(
             "Ola! Sou seu assistente de treinos. Pode perguntar sobre:\n\n" +
-            "- Treinos e exercicios\n" +
-            "- Alimentacao e hidratacao\n" +
-            "- Descanso e recuperacao\n" +
-            "- Motivacao\n" +
-            "- IMC e saude\n\n" +
-            "Como posso te ajudar?",
+                    "- Treinos e exercicios\n" +
+                    "- Alimentacao e hidratacao\n" +
+                    "- Descanso e recuperacao\n" +
+                    "- Motivacao\n" +
+                    "- IMC e saude\n\n" +
+                    "Como posso te ajudar?",
             listOf("Treino de hoje", "Me motive", "Dica de alimentacao")
         )
     }
@@ -82,7 +81,7 @@ class AssistenteFragment : Fragment() {
     private fun adicionarMensagemUsuario(texto: String) {
         val card = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(16, 8, 16, 8)
+            setPadding(dpToPx(16), dpToPx(8), dpToPx(16), dpToPx(8))
             gravity = Gravity.END
         }
 
@@ -90,9 +89,9 @@ class AssistenteFragment : Fragment() {
             this.text = texto
             setTextColor(Color.WHITE)
             textSize = 15f
-            setPadding(16, 12, 16, 12)
-            background = resources.getDrawable(R.drawable.bg_btn, null)
-            setMaxWidth((resources.displayMetrics.widthPixels * 0.75).toInt())
+            setPadding(dpToPx(16), dpToPx(12), dpToPx(16), dpToPx(12))
+            background = ContextCompat.getDrawable(context, R.drawable.bg_btn_accent)
+            maxWidth = (resources.displayMetrics.widthPixels * 0.75).toInt()
         }
 
         card.addView(txt)
@@ -103,17 +102,17 @@ class AssistenteFragment : Fragment() {
     private fun adicionarMensagemBot(texto: String, sugestoes: List<String> = emptyList()) {
         val card = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(16, 8, 16, 8)
+            setPadding(dpToPx(16), dpToPx(8), dpToPx(16), dpToPx(8))
             gravity = Gravity.START
         }
 
         val txt = TextView(requireContext()).apply {
             this.text = texto.replace("**", "")
-            setTextColor(resources.getColor(R.color.texto, null))
+            setTextColor(ContextCompat.getColor(context, R.color.texto))
             textSize = 15f
-            setPadding(16, 12, 16, 12)
-            background = resources.getDrawable(R.drawable.bg_input, null)
-            setMaxWidth((resources.displayMetrics.widthPixels * 0.85).toInt())
+            setPadding(dpToPx(16), dpToPx(12), dpToPx(16), dpToPx(12))
+            background = ContextCompat.getDrawable(context, R.drawable.bg_card)
+            maxWidth = (resources.displayMetrics.widthPixels * 0.85).toInt()
         }
 
         card.addView(txt)
@@ -121,18 +120,19 @@ class AssistenteFragment : Fragment() {
         if (sugestoes.isNotEmpty()) {
             val sugestaoLayout = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.HORIZONTAL
-                setPadding(0, 8, 0, 0)
+                setPadding(0, dpToPx(8), 0, 0)
                 gravity = Gravity.START
             }
 
             for (sugestao in sugestoes.take(3)) {
                 val btn = Button(requireContext()).apply {
                     text = sugestao
-                    setTextColor(resources.getColor(R.color.accent, null))
+                    setTextColor(ContextCompat.getColor(context, R.color.accent))
                     setBackgroundColor(Color.TRANSPARENT)
                     textSize = 12f
-                    setPadding(8, 4, 8, 4)
+                    setPadding(dpToPx(8), dpToPx(4), dpToPx(8), dpToPx(4))
                     isAllCaps = false
+                    typeface = Typeface.DEFAULT_BOLD
                     setOnClickListener {
                         inputMensagem.setText(sugestao)
                         enviarMensagem()
@@ -146,5 +146,9 @@ class AssistenteFragment : Fragment() {
 
         containerChat.addView(card)
         scrollChat.post { scrollChat.fullScroll(View.FOCUS_DOWN) }
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
     }
 }

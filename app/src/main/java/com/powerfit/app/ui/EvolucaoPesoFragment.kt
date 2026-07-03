@@ -1,12 +1,16 @@
 package com.powerfit.app.ui
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.powerfit.app.R
 import com.powerfit.app.data.DatabaseHelper
@@ -31,10 +35,11 @@ class EvolucaoPesoFragment : Fragment() {
 
         if (historico.isEmpty()) {
             val txt = TextView(requireContext()).apply {
-                text = "Nenhum registro de peso."
-                setTextColor(resources.getColor(R.color.texto, null))
+                text = "Nenhum registro de peso ainda"
+                setTextColor(ContextCompat.getColor(context, R.color.texto_secundario))
                 textSize = 14f
-                setPadding(32, 32, 32, 32)
+                gravity = Gravity.CENTER
+                setPadding(32, 80, 32, 32)
             }
             container.addView(txt)
             return
@@ -45,24 +50,33 @@ class EvolucaoPesoFragment : Fragment() {
         for (reg in historico) {
             val diff = reg.peso - primeiro
             val sinal = if (diff > 0) "+" else ""
-            val cor = if (diff <= 0) resources.getColor(R.color.verde, null) else resources.getColor(R.color.amarelo, null)
+            val cor = if (diff <= 0) ContextCompat.getColor(requireContext(), R.color.verde)
+            else ContextCompat.getColor(requireContext(), R.color.amarelo)
 
-            val layout = LinearLayout(requireContext()).apply {
+            val card = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.HORIZONTAL
-                setPadding(0, 8, 0, 8)
+                background = ContextCompat.getDrawable(context, R.drawable.bg_card)
+                setPadding(dpToPx(16), dpToPx(14), dpToPx(16), dpToPx(14))
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { bottomMargin = dpToPx(10) }
+                gravity = Gravity.CENTER_VERTICAL
             }
 
             val txtData = TextView(requireContext()).apply {
                 text = reg.data
-                setTextColor(resources.getColor(R.color.texto, null))
+                setTextColor(ContextCompat.getColor(context, R.color.texto))
                 textSize = 14f
+                typeface = Typeface.DEFAULT_BOLD
                 layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.4f)
             }
 
             val txtPeso = TextView(requireContext()).apply {
                 text = "${reg.peso}kg"
-                setTextColor(resources.getColor(R.color.texto, null))
+                setTextColor(Color.WHITE)
                 textSize = 14f
+                typeface = Typeface.DEFAULT_BOLD
                 layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.3f)
             }
 
@@ -70,13 +84,19 @@ class EvolucaoPesoFragment : Fragment() {
                 text = "${sinal}${"%.1f".format(diff)}kg"
                 setTextColor(cor)
                 textSize = 12f
+                typeface = Typeface.DEFAULT_BOLD
                 layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.3f)
+                gravity = Gravity.END
             }
 
-            layout.addView(txtData)
-            layout.addView(txtPeso)
-            layout.addView(txtDiff)
-            container.addView(layout)
+            card.addView(txtData)
+            card.addView(txtPeso)
+            card.addView(txtDiff)
+            container.addView(card)
         }
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
     }
 }

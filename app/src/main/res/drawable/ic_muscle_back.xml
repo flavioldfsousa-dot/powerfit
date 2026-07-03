@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Back / pull-up icon: person hanging from bar -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M4,4h16v1.5H4z" />
+    <!-- Bar ends -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M3,3h1v3H3zM20,3h1v3h-1z" />
+    <!-- Arms -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M7,5.5v5c0,0.8 0.7,1.5 1.5,1.5S10,11.3 10,10.5V5.5h-1.5v5h-0V5.5H7zM14,5.5v5c0,0.8 0.7,1.5 1.5,1.5s1.5,-0.7 1.5,-1.5V5.5H15.5v5h-0V5.5H14z" />
+    <!-- Head -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M12,5.5m-1.5,0a1.5,1.5 0,1 1,3 0a1.5,1.5 0,1 1,-3 0" />
+    <!-- Body -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M10.5,7h3v5h-3z" />
+    <!-- Legs -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M10.5,12l-1,5h1.5l0.5,-4 0.5,4H14l-1,-5z" />
+</vector>

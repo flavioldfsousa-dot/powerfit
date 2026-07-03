@@ -16,7 +16,7 @@ object AssistenteIA {
             p.contains("treino") && p.contains("hoje") -> treinoHoje(usuario, dia)
             p.contains("treino") && p.contains("semana") -> treinoSemana(usuario)
             p.contains("exercicio") || p.contains("exercício") -> exercicioSugerido(usuario)
-            p.contains("descanso") || p.contains("descanso") || p.contains("recuperacao") -> dicaDescanso()
+            p.contains("descanso") || p.contains("recuperacao") -> dicaDescanso()
             p.contains("agua") || p.contains("hidrata") || p.contains("beber") -> dicaHidratacao()
             p.contains("alimentacao") || p.contains("comida") || p.contains("comer") || p.contains("dieta") -> dicaAlimentacao()
             p.contains("aquecimento") || p.contains("alongamento") -> dicaAquecimento()
@@ -32,20 +32,20 @@ object AssistenteIA {
             p.contains("estresse") || p.contains("ansiedade") || p.contains("ansioso") -> dicaEstresse()
             p.contains("qual") && p.contains("melhor") -> melhorDica(usuario)
             p.contains("obrigad") || p.contains("valeu") || p.contains("thanks") -> Resposta(
-                "De nada! Estou aqui para te ajudar sempre que precisar. Bons treinos! 💪"
+                "De nada! Estou aqui para te ajudar sempre que precisar. Bons treinos!"
             )
             p.contains("ola") || p.contains("oi") || p.contains("bom dia") || p.contains("boa noite") -> saudacao(usuario)
             else -> Resposta(
                 "Posso te ajudar com esses assuntos:\n\n" +
-                "- Treino de hoje/semana\n" +
-                "- Exercicios sugeridos\n" +
-                "- Descanso e recuperacao\n" +
-                "- Hidratacao e alimentacao\n" +
-                "- Aquecimento e alongamento\n" +
-                "- Motivacao\n" +
-                "- IMC e peso ideal\n" +
-                "- Frequencia de treinos\n\n" +
-                "Pergunte sobre qualquer um!",
+                        "- Treino de hoje/semana\n" +
+                        "- Exercicios sugeridos\n" +
+                        "- Descanso e recuperacao\n" +
+                        "- Hidratacao e alimentacao\n" +
+                        "- Aquecimento e alongamento\n" +
+                        "- Motivacao\n" +
+                        "- IMC e peso ideal\n" +
+                        "- Frequencia de treinos\n\n" +
+                        "Pergunte sobre qualquer um!",
                 listOf("Treino de hoje", "Dica de alimentacao", "Me motive")
             )
         }
@@ -112,9 +112,9 @@ object AssistenteIA {
         return if (exercicio != null) {
             Resposta(
                 "Exercicio sugerido para $musculo:\n\n" +
-                "**${exercicio.nome}**\n" +
-                "${exercicio.series}x ${exercicio.reps} | Descanso: ${exercicio.descanso}s\n\n" +
-                "Foco na tecnica e movimento controlado!",
+                        "**${exercicio.nome}**\n" +
+                        "${exercicio.series}x ${exercicio.reps} | Descanso: ${exercicio.descanso}s\n\n" +
+                        "Foco na tecnica e movimento controlado!",
                 listOf("Mais exercicios de $musculo", "Treino de hoje")
             )
         } else {
@@ -165,11 +165,11 @@ object AssistenteIA {
     private fun dicaAquecimento(): Resposta {
         return Resposta(
             "Aquecimento antes do treino e OBRIGATORIO!\n\n" +
-            "1. 5 min de caminhada/bicicleta (atividade aerobica leve)\n" +
-            "2. Rotacao de articulacoes (tornozelo, joelho, quadril, ombro, pescoco)\n" +
-            "3. 10 flexoes leves e 10 agachamentos\n" +
-            "4. Alongamento dinamico dos musculos que seraao treinados\n\n" +
-            "Isso previne lescoes e melhora a performance!",
+                    "1. 5 min de caminhada/bicicleta (atividade aerobica leve)\n" +
+                    "2. Rotacao de articulacoes (tornozelo, joelho, quadril, ombro, pescoco)\n" +
+                    "3. 10 flexoes leves e 10 agachamentos\n" +
+                    "4. Alongamento dinamico dos musculos que seraao treinados\n\n" +
+                    "Isso previne lescoes e melhora a performance!",
             listOf("Treino de hoje", "Dica de alongamento")
         )
     }
@@ -177,14 +177,14 @@ object AssistenteIA {
     private fun dicaDor(): Resposta {
         return Resposta(
             "Dor muscular normal (DOR) vs Dor de lesao:\n\n" +
-            "NORMAL: dor que aparece 24-72h apos treino, simetrica, melhora com movimento.\n" +
-            "LESAO: dor aguda durante treino, localizada, piora com movimento.\n\n" +
-            "Para dor normal:\n" +
-            "- Continue se movendo (descanso ativo)\n" +
-            "- Banho quente e massagem leve\n" +
-            "- Hidratacao e sono adequados\n" +
-            "- Agua gelada e gelo na area\n\n" +
-            "Se a dor persistir mais de 5 dias, procure um medico!",
+                    "NORMAL: dor que aparece 24-72h apos treino, simetrica, melhora com movimento.\n" +
+                    "LESAO: dor aguda durante treino, localizada, piora com movimento.\n\n" +
+                    "Para dor normal:\n" +
+                    "- Continue se movendo (descanso ativo)\n" +
+                    "- Banho quente e massagem leve\n" +
+                    "- Hidratacao e sono adequados\n" +
+                    "- Agua gelada e gelo na area\n\n" +
+                    "Se a dor persistir mais de 5 dias, procure um medico!",
             listOf("Dica de recuperacao", "Alongamento leve")
         )
     }
@@ -295,11 +295,11 @@ object AssistenteIA {
         }
         return Resposta(
             "Para seu objetivo (${usuario.objetivo.uppercase()}):\n\n" +
-            "Tempo de descanso recomendado: $tempoDescanso\n\n" +
-            "Descanso adequado permite:\n" +
-            "- Recuperacao de ATP (energia muscular)\n" +
-            "- Manter intensidade em todas as series\n" +
-            "- Evitar acumulo de acido latico",
+                    "Tempo de descanso recomendado: $tempoDescanso\n\n" +
+                    "Descanso adequado permite:\n" +
+                    "- Recuperacao de ATP (energia muscular)\n" +
+                    "- Manter intensidade em todas as series\n" +
+                    "- Evitar acumulo de acido latico",
             listOf("Treino de hoje", "Exercicio sugerido")
         )
     }
@@ -307,13 +307,13 @@ object AssistenteIA {
     private fun dicaFrequencia(usuario: Usuario): Resposta {
         return Resposta(
             "Frequencia recomendada de treinos:\n\n" +
-            "Forca: 3-5x por semana por grupo muscular\n" +
-            "Seu split atual tem pernas 3x/semana (otimo!)\n\n" +
-            "Regras gerais:\n" +
-            "- Minimo 48h entre treinos do mesmo grupo\n" +
-            "- 3-4 treinos por semana e ideal para iniciantes\n" +
-            "- 5-6x por semana para intermediarios/avançados\n" +
-            "- 1-2 dias de descanso completo por semana",
+                    "Forca: 3-5x por semana por grupo muscular\n" +
+                    "Seu split atual tem pernas 3x/semana (otimo!)\n\n" +
+                    "Regras gerais:\n" +
+                    "- Minimo 48h entre treinos do mesmo grupo\n" +
+                    "- 3-4 treinos por semana e ideal para iniciantes\n" +
+                    "- 5-6x por semana para intermediarios/avançados\n" +
+                    "- 1-2 dias de descanso completo por semana",
             listOf("Treino da semana", "Treino de hoje")
         )
     }
@@ -321,12 +321,12 @@ object AssistenteIA {
     private fun dicaSono(): Resposta {
         return Resposta(
             "Sono e recuperacao:\n\n" +
-            "1. Durma 7-9 horas por noite\n" +
-            "2. Evite telas 1h antes de dormir\n" +
-            "3. Mantenha horario fixo (mesmo nos fins de semana)\n" +
-            "4. Quarto escuro e frio (18-20°C)\n" +
-            "5. Evite cafeina apos as 14h\n\n" +
-            "Durante o sono, o corpo libera ate 70% do hormonio de crescimento!",
+                    "1. Durma 7-9 horas por noite\n" +
+                    "2. Evite telas 1h antes de dormir\n" +
+                    "3. Mantenha horario fixo (mesmo nos fins de semana)\n" +
+                    "4. Quarto escuro e frio (18-20°C)\n" +
+                    "5. Evite cafeina apos as 14h\n\n" +
+                    "Durante o sono, o corpo libera ate 70% do hormonio de crescimento!",
             listOf("Dica de recuperacao", "Treino de hoje")
         )
     }
@@ -334,14 +334,14 @@ object AssistenteIA {
     private fun dicaEstresse(): Resposta {
         return Resposta(
             "Exercicio e o melhor remédio para estresse:\n\n" +
-            "1. Treino regular reduz cortisol em ate 25%\n" +
-            "2. Exercicio libera endorfinas (sensacao de bem-estar)\n" +
-            "3. Atividade fisica melhora a qualidade do sono\n" +
-            "4. Rotina de treinos da sensacao de controle\n\n" +
-            "Se sentir sobrecarregado:\n" +
-            "- Treino leve e melhor que nada\n" +
-            "- Caminhada de 20min ja ajuda muito\n" +
-            "- Yoga e alongamento reduzem ansiedade",
+                    "1. Treino regular reduz cortisol em ate 25%\n" +
+                    "2. Exercicio libera endorfinas (sensacao de bem-estar)\n" +
+                    "3. Atividade fisica melhora a qualidade do sono\n" +
+                    "4. Rotina de treinos da sensacao de controle\n\n" +
+                    "Se sentir sobrecarregado:\n" +
+                    "- Treino leve e melhor que nada\n" +
+                    "- Caminhada de 20min ja ajuda muito\n" +
+                    "- Yoga e alongamento reduzem ansiedade",
             listOf("Me motive", "Treino de hoje")
         )
     }
@@ -349,13 +349,13 @@ object AssistenteIA {
     private fun melhorDica(usuario: Usuario): Resposta {
         return Resposta(
             "Melhor conselho para ${usuario.nome}:\n\n" +
-            "CONSISTENCIA > INTENSIDADE\n\n" +
-            "1. Treine 3-4x por semana com constancia\n" +
-            "2. Nao pule refeicoes - coma bem\n" +
-            "3. Durma bem - e quando voce cresce\n" +
-            "4. Agua: minimo 2L por dia\n" +
-            "5. Paciencia: resultados levam 3-6 meses\n\n" +
-            "Voce ja esta no caminho certo usando o Power Fit!",
+                    "CONSISTENCIA > INTENSIDADE\n\n" +
+                    "1. Treine 3-4x por semana com constancia\n" +
+                    "2. Nao pule refeicoes - coma bem\n" +
+                    "3. Durma bem - e quando voce cresce\n" +
+                    "4. Agua: minimo 2L por dia\n" +
+                    "5. Paciencia: resultados levam 3-6 meses\n\n" +
+                    "Voce ja esta no caminho certo usando o Zentrox Fit!",
             listOf("Treino de hoje", "Me motive")
         )
     }

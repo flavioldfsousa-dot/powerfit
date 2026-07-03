@@ -19,8 +19,6 @@ class CadastroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<TextView>(R.id.txtTituloHeader).text = "POWER FIT"
-
         val inputNome = view.findViewById<EditText>(R.id.inputNome)
         val inputPeso = view.findViewById<EditText>(R.id.inputPeso)
         val inputAltura = view.findViewById<EditText>(R.id.inputAltura)
@@ -28,13 +26,21 @@ class CadastroFragment : Fragment() {
         val btnSalvar = view.findViewById<Button>(R.id.btnSalvar)
 
         val objetivos = arrayOf("Forca", "Definicao", "Perda de peso")
-        spinnerObjetivo.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, objetivos)
+        spinnerObjetivo.adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            objetivos
+        )
 
         btnSalvar.setOnClickListener {
             val nome = inputNome.text.toString().trim()
             val peso = inputPeso.text.toString().toFloatOrNull() ?: 0f
             val altura = inputAltura.text.toString().toFloatOrNull() ?: 0f
-            val objetivoMap = mapOf("Forca" to "forca", "Definicao" to "definicao", "Perda de peso" to "perda_de_peso")
+            val objetivoMap = mapOf(
+                "Forca" to "forca",
+                "Definicao" to "definicao",
+                "Perda de peso" to "perda_de_peso"
+            )
             val objetivo = objetivoMap[spinnerObjetivo.selectedItem.toString()] ?: "forca"
 
             if (nome.isNotEmpty() && peso > 0 && altura > 0) {

@@ -5,26 +5,41 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="16dp">
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="14dp">
 
     <ImageButton
         android:id="@+id/btnVoltar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/bg_chip"
         android:src="@android:drawable/ic_menu_revert"
         android:contentDescription="Voltar"
         android:scaleType="centerInside"
-        android:tint="@color/texto" />
+        android:padding="8dp"
+        android:tint="#E8E8F0" />
 
     <TextView
         android:id="@+id/txtTituloHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:textColor="#FF2D55"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="12dp"
+        android:fontFamily="sans-serif-medium" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/titulo"
-        android:textSize="20sp"
+        android:text="ZENTROX"
+        android:textColor="#8888A0"
+        android:textSize="10sp"
+        android:letterSpacing="0.2"
         android:textStyle="bold"
-        android:layout_marginStart="12dp" />
+        android:fontFamily="sans-serif-medium" />
 
 </LinearLayout>

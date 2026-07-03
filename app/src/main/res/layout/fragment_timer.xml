@@ -2,74 +2,91 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="#0A0A0F"
     android:orientation="vertical">
 
     <include layout="@layout/layout_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:gravity="center"
+        android:paddingHorizontal="24dp">
 
+        <!-- Timer Label -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TIMER"
-            android:textColor="@color/titulo"
-            android:textSize="22sp"
+            android:textColor="#8888A0"
+            android:textSize="12sp"
             android:textStyle="bold"
+            android:letterSpacing="0.2"
             android:layout_marginBottom="24dp" />
 
-        <TextView
-            android:id="@+id/txtTempo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="@color/accent"
-            android:textSize="64sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="32dp" />
+        <!-- Large Timer Circle -->
+        <FrameLayout
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:background="@drawable/bg_card"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp">
 
+            <TextView
+                android:id="@+id/txtTempo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="00:00"
+                android:textColor="#00E5FF"
+                android:textSize="72sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light" />
+        </FrameLayout>
+
+        <!-- Buttons Row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="20dp">
 
             <Button
                 android:id="@+id/btnIniciar"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="56dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_btn"
+                android:background="@drawable/bg_btn_accent"
                 android:text="INICIAR"
-                android:textColor="@color/texto"
-                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
                 android:layout_marginEnd="8dp" />
 
             <Button
                 android:id="@+id/btnResetar"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="56dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn"
                 android:text="RESETAR"
-                android:textColor="@color/texto"
-                android:textSize="16sp"
+                android:textColor="#E8E8F0"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
                 android:layout_marginStart="8dp" />
-
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Toque para pausar/continuar"
-            android:textColor="@color/texto"
+            android:textColor="#8888A0"
             android:textSize="12sp"
-            android:alpha="0.3" />
-
+            android:alpha="0.6" />
     </LinearLayout>
+
 </LinearLayout>
