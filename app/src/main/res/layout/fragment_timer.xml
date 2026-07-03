@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TIMER"
+            android:text="@string/timer_title"
             android:textColor="#8888A0"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -59,7 +59,7 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_accent"
-                android:text="INICIAR"
+                android:text="@string/timer_start"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -72,7 +72,7 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn"
-                android:text="RESETAR"
+                android:text="@string/timer_reset"
                 android:textColor="#E8E8F0"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toque para pausar/continuar"
+            android:text="@string/timer_hint"
             android:textColor="#8888A0"
             android:textSize="12sp"
             android:alpha="0.6" />

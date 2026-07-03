@@ -44,7 +44,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/bg_input"
-            android:hint="Pergunte ao assistente..."
+            android:hint="@string/hint_assistant"
             android:textColor="#E8E8F0"
             android:textColorHint="#8888A0"
             android:textSize="14sp"

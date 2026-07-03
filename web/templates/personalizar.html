@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalizar Treinos - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='translations.js') }}"></script>
+    <script src="{{ url_for('static', filename='i18n.js') }}"></script>
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/menu'">←</div>
+            <div class="header-title">PERSONALIZAR TREINOS</div>
+        </div>
+        <div class="content scrollable">
+            <div class="info-card">
+                <div class="info-icon">ℹ️</div>
+                <div class="info-text">
+                    <strong>Personalize seus treinos!</strong><br>
+                    Arraste os exercicios para reordenar ou mova entre musculos.
+                    Seu treino personalizado sera salvo automaticamente.
+                </div>
+            </div>
+
+            <div class="obj-selector">
+                <button class="obj-btn active" onclick="selectObj(this, 'forca')">Forca</button>
+                <button class="obj-btn" onclick="selectObj(this, 'definicao')">Definicao</button>
+                <button class="obj-btn" onclick="selectObj(this, 'perda_peso')">Perda de Peso</button>
+            </div>
+
+            <div id="schedule-editor"></div>
+
+            <div class="btn-group">
+                <button class="btn-primary" onclick="salvarPersonalizacao()">SALVAR PERSONALIZACAO</button>
+                <button class="btn-secondary" onclick="resetarPadrao()">RESTAURAR PADRAO</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const MUSCLES = ['peito', 'costas', 'pernas', 'ombros', 'bracos', 'abdomen'];
+        const MUSCLE_NAMES = {
+            peito: 'Peito', costas: 'Costas', pernas: 'Pernas',
+            ombros: 'Ombros', bracos: 'Bracos', abdomen: 'Abdomen'
+        };
+        const MUSCLE_ICONS = {
+            peito: '🏋️', costas: '💪', pernas: '🦵',
+            ombros: '🎯', bracos: '💪', abdomen: '🎯'
+        };
+
+        let objetivo = 'forca';
+        let exerciciosData = {};
+        let draggedItem = null;
+        let draggedFrom = null;
+
+        function selectObj(el, obj) {
+            document.querySelectorAll('.obj-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            objetivo = obj;
+            carregarPersonalizacao();
+        }
+
+        async function carregarExercicios() {
+            for (const muscle of MUSCLES) {
+                const res = await fetch(`/api/exercicios/${muscle}/${objetivo}`);
+                exerciciosData[muscle] = await res.json();
+            }
+        }
+
+        function carregarPersonalizacao() {
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let schedule;
+
+            if (saved) {
+                schedule = JSON.parse(saved);
+            } else {
+                schedule = {};
+                for (const muscle of MUSCLES) {
+                    schedule[muscle] = exerciciosData[muscle] ? [...exerciciosData[muscle]] : [];
+                }
+            }
+
+            renderizarEditor(schedule);
+        }
+
+        function renderizarEditor(schedule) {
+            const container = document.getElementById('schedule-editor');
+            container.innerHTML = '';
+
+            for (const muscle of MUSCLES) {
+                const exercicios = schedule[muscle] || [];
+                const muscleCard = document.createElement('div');
+                muscleCard.className = 'muscle-editor-card';
+                muscleCard.innerHTML = `
+                    <div class="muscle-editor-header">
+                        <div class="muscle-editor-icon">${MUSCLE_ICONS[muscle]}</div>
+                        <div class="muscle-editor-name">${MUSCLE_NAMES[muscle]}</div>
+                        <div class="muscle-editor-count">${exercicios.length} exercicios</div>
+                    </div>
+                    <div class="exercise-list" data-muscle="${muscle}">
+                        ${exercicios.map((ex, i) => `
+                            <div class="exercise-drag-item" draggable="true" data-muscle="${muscle}" data-index="${i}">
+                                <div class="drag-handle">⋮⋮</div>
+                                <div class="exercise-drag-info">
+                                    <div class="exercise-drag-name">${ex.nome}</div>
+                                    <div class="exercise-drag-detail">${ex.series} | ${ex.descanso}</div>
+                                </div>
+                                <div class="exercise-drag-actions">
+                                    <button class="btn-move" onclick="moverExercicio('${muscle}', ${i}, 'up')" title="Mover para cima">↑</button>
+                                    <button class="btn-move" onclick="moverExercicio('${muscle}', ${i}, 'down')" title="Mover para baixo">↓</button>
+                                    <button class="btn-remove" onclick="removerExercicio('${muscle}', ${i})" title="Remover">✕</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="muscle-editor-add">
+                        <select class="add-exercise-select" id="add-${muscle}">
+                            <option value="">Adicionar exercicio...</option>
+                            ${getExerciciosDisponiveis(muscle).map(ex => `
+                                <option value="${ex.nome}">${ex.nome}</option>
+                            `).join('')}
+                        </select>
+                        <button class="btn-add" onclick="adicionarExercicio('${muscle}')">+</button>
+                    </div>
+                `;
+                container.appendChild(muscleCard);
+            }
+
+            setupDragAndDrop();
+        }
+
+        function getExerciciosDisponiveis(muscle) {
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let schedule = saved ? JSON.parse(saved) : {};
+            const atuais = schedule[muscle] ? schedule[muscle].map(e => e.nome) : [];
+            return (exerciciosData[muscle] || []).filter(ex => !atuais.includes(ex.nome));
+        }
+
+        function setupDragAndDrop() {
+            const items = document.querySelectorAll('.exercise-drag-item');
+            const lists = document.querySelectorAll('.exercise-list');
+
+            items.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    draggedItem = item;
+                    draggedFrom = item.dataset.muscle;
+                    item.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                    draggedItem = null;
+                    draggedFrom = null;
+                });
+            });
+
+            lists.forEach(list => {
+                list.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    list.classList.add('drag-over');
+                });
+
+                list.addEventListener('dragleave', () => {
+                    list.classList.remove('drag-over');
+                });
+
+                list.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    list.classList.remove('drag-over');
+
+                    if (draggedItem) {
+                        const targetMuscle = list.dataset.muscle;
+                        const sourceMuscle = draggedItem.dataset.muscle;
+                        const sourceIndex = parseInt(draggedItem.dataset.index);
+
+                        moverExercicioParaMusculo(sourceMuscle, sourceIndex, targetMuscle);
+                    }
+                });
+            });
+        }
+
+        function moverExercicio(muscle, index, direction) {
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let schedule = saved ? JSON.parse(saved) : {};
+
+            if (!schedule[muscle]) return;
+
+            const newIndex = direction === 'up' ? index - 1 : index + 1;
+            if (newIndex < 0 || newIndex >= schedule[muscle].length) return;
+
+            const temp = schedule[muscle][index];
+            schedule[muscle][index] = schedule[muscle][newIndex];
+            schedule[muscle][newIndex] = temp;
+
+            renderizarEditor(schedule);
+        }
+
+        function moverExercicioParaMusculo(sourceMuscle, sourceIndex, targetMuscle) {
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let schedule = saved ? JSON.parse(saved) : {};
+
+            if (!schedule[sourceMuscle] || !schedule[targetMuscle]) return;
+
+            const exercicio = schedule[sourceMuscle].splice(sourceIndex, 1)[0];
+            schedule[targetMuscle].push(exercicio);
+
+            renderizarEditor(schedule);
+        }
+
+        function removerExercicio(muscle, index) {
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let schedule = saved ? JSON.parse(saved) : {};
+
+            if (!schedule[muscle]) return;
+
+            schedule[muscle].splice(index, 1);
+            renderizarEditor(schedule);
+        }
+
+        function adicionarExercicio(muscle) {
+            const select = document.getElementById(`add-${muscle}`);
+            const nome = select.value;
+            if (!nome) return;
+
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let schedule = saved ? JSON.parse(saved) : {};
+
+            const exercicio = exerciciosData[muscle].find(ex => ex.nome === nome);
+            if (exercicio && schedule[muscle]) {
+                schedule[muscle].push({...exercicio});
+                renderizarEditor(schedule);
+            }
+        }
+
+        function salvarPersonalizacao() {
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let schedule = saved ? JSON.parse(saved) : {};
+
+            for (const muscle of MUSCLES) {
+                const list = document.querySelector(`.exercise-list[data-muscle="${muscle}"]`);
+                if (list) {
+                    const items = list.querySelectorAll('.exercise-drag-item');
+                    const newOrder = [];
+                    items.forEach(item => {
+                        const index = parseInt(item.dataset.index);
+                        if (schedule[muscle] && schedule[muscle][index]) {
+                            newOrder.push(schedule[muscle][index]);
+                        }
+                    });
+                    schedule[muscle] = newOrder;
+                }
+            }
+
+            localStorage.setItem(`zentrox_schedule_${objetivo}`, JSON.stringify(schedule));
+            alert('Personalizacao salva com sucesso!');
+        }
+
+        function resetarPadrao() {
+            if (confirm('Tem certeza que deseja restaurar o treino padrao?')) {
+                localStorage.removeItem(`zentrox_schedule_${objetivo}`);
+                carregarPersonalizacao();
+                alert('Treino restaurado para o padrao!');
+            }
+        }
+
+        async function init() {
+            await carregarExercicios();
+            carregarPersonalizacao();
+        }
+
+        init();
+    </script>
+</body>
+</html>

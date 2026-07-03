@@ -31,15 +31,15 @@ class TreinoSemanaFragment : Fragment() {
         view.findViewById<ImageButton>(R.id.btnVoltar).setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        view.findViewById<TextView>(R.id.txtTituloHeader).text = "TREINO DA SEMANA"
+        view.findViewById<TextView>(R.id.txtTituloHeader).text = getString(R.string.weekly_plan_title)
 
         val container = view.findViewById<LinearLayout>(R.id.containerSemana)
         val usuario = DatabaseHelper.carregar(requireContext())
 
         val diaAtual = mapOf(
-            Calendar.MONDAY to "Segunda", Calendar.TUESDAY to "Terca",
-            Calendar.WEDNESDAY to "Quarta", Calendar.THURSDAY to "Quinta",
-            Calendar.FRIDAY to "Sexta", Calendar.SATURDAY to "Sabado"
+            Calendar.MONDAY to getString(R.string.monday), Calendar.TUESDAY to getString(R.string.tuesday),
+            Calendar.WEDNESDAY to getString(R.string.wednesday), Calendar.THURSDAY to getString(R.string.thursday),
+            Calendar.FRIDAY to getString(R.string.friday), Calendar.SATURDAY to getString(R.string.saturday)
         )[Calendar.getInstance().get(Calendar.DAY_OF_WEEK)]
 
         for (dia in Exercicios.diasSemana) {
@@ -64,7 +64,7 @@ class TreinoSemanaFragment : Fragment() {
                 textSize = 16f
                 typeface = Typeface.DEFAULT_BOLD
                 if (isToday) {
-                    text = "${dia.uppercase()}  (HOJE)"
+                    text = "${dia.uppercase()}  (${getString(R.string.today)})"
                 }
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -114,7 +114,7 @@ class TreinoSemanaFragment : Fragment() {
                 val lista = Exercicios.dados[musculo]?.get(usuario.objetivo) ?: emptyList()
                 val count = lista.size
                 val txtCount = TextView(requireContext()).apply {
-                    text = "    $count exercicios"
+                    text = "    $count ${getString(R.string.exercises)}"
                     setTextColor(ContextCompat.getColor(context, R.color.texto_secundario))
                     textSize = 12f
                 }

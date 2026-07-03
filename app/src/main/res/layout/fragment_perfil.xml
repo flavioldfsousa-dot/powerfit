@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MEU PERFIL"
+        android:text="@string/profile"
         android:textColor="#FF2D55"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -19,99 +19,162 @@
         android:paddingHorizontal="20dp"
         android:layout_marginBottom="20dp" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_card"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingHorizontal="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome"
-                android:textColor="#8888A0"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="8dp" />
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginBottom="16dp">
 
-            <EditText
-                android:id="@+id/inputNomePerfil"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name"
+                    android:textColor="#8888A0"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/inputNomePerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="@string/your_name"
+                    android:textColor="#E8E8F0"
+                    android:textColorHint="#8888A0"
+                    android:textSize="15sp"
+                    android:paddingHorizontal="16dp"
+                    android:inputType="textPersonName"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weight_kg"
+                    android:textColor="#8888A0"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/inputPesoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="70"
+                    android:textColor="#E8E8F0"
+                    android:textColorHint="#8888A0"
+                    android:textSize="15sp"
+                    android:paddingHorizontal="16dp"
+                    android:inputType="numberDecimal"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/height_cm"
+                    android:textColor="#8888A0"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/inputAlturaPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="175"
+                    android:textColor="#E8E8F0"
+                    android:textColorHint="#8888A0"
+                    android:textSize="15sp"
+                    android:paddingHorizontal="16dp"
+                    android:inputType="numberDecimal"
+                    android:layout_marginBottom="24dp" />
+
+                <Button
+                    android:id="@+id/btnSalvarPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_btn_accent"
+                    android:text="@string/save"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05" />
+            </LinearLayout>
+
+            <!-- Language Selector -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:background="@drawable/bg_input"
-                android:hint="Seu nome"
-                android:textColor="#E8E8F0"
-                android:textColorHint="#8888A0"
-                android:textSize="15sp"
-                android:paddingHorizontal="16dp"
-                android:inputType="textPersonName"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Peso"
-                android:textColor="#8888A0"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="8dp" />
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginBottom="16dp">
 
-            <EditText
-                android:id="@+id/inputPesoPerfil"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language"
+                    android:textColor="#8888A0"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="12dp" />
+
+                <Spinner
+                    android:id="@+id/spinnerLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_input"
+                    android:paddingHorizontal="12dp" />
+            </LinearLayout>
+
+            <!-- Personalizar Treinos -->
+            <LinearLayout
+                android:id="@+id/btnPersonalizarTreinos"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:background="@drawable/bg_input"
-                android:hint="Peso (kg)"
-                android:textColor="#E8E8F0"
-                android:textColorHint="#8888A0"
-                android:textSize="15sp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_card"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:paddingHorizontal="16dp"
-                android:inputType="numberDecimal"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Altura"
-                android:textColor="#8888A0"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/customize_short"
+                    android:textColor="#E8E8F0"
+                    android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/inputAlturaPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:background="@drawable/bg_input"
-                android:hint="Altura (m)"
-                android:textColor="#E8E8F0"
-                android:textColorHint="#8888A0"
-                android:textSize="15sp"
-                android:paddingHorizontal="16dp"
-                android:inputType="numberDecimal"
-                android:layout_marginBottom="24dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=">"
+                    android:textColor="#8888A0"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSalvarPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:background="@drawable/bg_btn_accent"
-                android:text="SALVAR"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05" />
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

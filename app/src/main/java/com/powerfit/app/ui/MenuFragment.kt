@@ -11,6 +11,7 @@ import com.powerfit.app.MainActivity
 import com.powerfit.app.R
 import com.powerfit.app.data.DatabaseHelper
 import com.powerfit.app.data.Exercicios
+import com.powerfit.app.data.LocaleHelper
 import java.util.Calendar
 
 class MenuFragment : Fragment() {
@@ -25,39 +26,41 @@ class MenuFragment : Fragment() {
         val usuario = DatabaseHelper.carregar(requireContext())
         val (imc, _) = DatabaseHelper.calcularImc(usuario.peso, usuario.altura)
         val objetivoLabel = when (usuario.objetivo) {
-            "forca" -> "Forca"
-            "definicao" -> "Definicao"
-            "perda_de_peso" -> "Perda de peso"
+            "forca" -> getString(R.string.strength)
+            "definicao" -> getString(R.string.definition)
+            "perda_de_peso" -> getString(R.string.weight_loss)
             else -> ""
         }
 
-        view.findViewById<TextView>(R.id.txtOla).text = "Ola, ${usuario.nome}!"
-        view.findViewById<TextView>(R.id.txtInfo).text = "Pronto para treinar hoje?"
+        view.findViewById<TextView>(R.id.txtOla).text = "${getString(R.string.greeting)}, ${usuario.nome}!"
+        view.findViewById<TextView>(R.id.txtInfo).text = getString(R.string.ready_train)
 
-        view.findViewById<TextView>(R.id.chipPeso).text = "Peso: ${usuario.peso}kg"
+        view.findViewById<TextView>(R.id.chipPeso).text = "${getString(R.string.weight_kg)}: ${usuario.peso}kg"
         view.findViewById<TextView>(R.id.chipImc).text = "IMC: ${"%.1f".format(imc)}"
         view.findViewById<TextView>(R.id.chipObjetivo).text = objetivoLabel
 
         val diasMap = mapOf(
-            Calendar.MONDAY to "Segunda-feira",
-            Calendar.TUESDAY to "Terca-feira",
-            Calendar.WEDNESDAY to "Quarta-feira",
-            Calendar.THURSDAY to "Quinta-feira",
-            Calendar.FRIDAY to "Sexta-feira",
-            Calendar.SATURDAY to "Sabado",
-            Calendar.SUNDAY to "Domingo"
+            Calendar.MONDAY to getString(R.string.monday_full),
+            Calendar.TUESDAY to getString(R.string.tuesday_full),
+            Calendar.WEDNESDAY to getString(R.string.wednesday_full),
+            Calendar.THURSDAY to getString(R.string.thursday_full),
+            Calendar.FRIDAY to getString(R.string.friday_full),
+            Calendar.SATURDAY to getString(R.string.saturday_full),
+            Calendar.SUNDAY to getString(R.string.sunday_full)
         )
-        val diaAtual = diasMap[Calendar.getInstance().get(Calendar.DAY_OF_WEEK)] ?: "Domingo"
+        val diaAtual = diasMap[Calendar.getInstance().get(Calendar.DAY_OF_WEEK)] ?: getString(R.string.sunday_full)
         view.findViewById<TextView>(R.id.txtDiaTreino).text = diaAtual
 
         val diaSemana = mapOf(
-            Calendar.MONDAY to "Segunda", Calendar.TUESDAY to "Terca",
-            Calendar.WEDNESDAY to "Quarta", Calendar.THURSDAY to "Quinta",
-            Calendar.FRIDAY to "Sexta", Calendar.SATURDAY to "Sabado"
+            Calendar.MONDAY to getString(R.string.monday), Calendar.TUESDAY to getString(R.string.tuesday),
+            Calendar.WEDNESDAY to getString(R.string.wednesday), Calendar.THURSDAY to getString(R.string.thursday),
+            Calendar.FRIDAY to getString(R.string.friday), Calendar.SATURDAY to getString(R.string.saturday)
         )
         val diaKey = diaSemana[Calendar.getInstance().get(Calendar.DAY_OF_WEEK)]
-        val musculosHoje = Exercicios.splitSemanal[diaKey]?.joinToString(", ") { it.uppercase() } ?: "Descanso"
+        val musculosHoje = Exercicios.splitSemanal[diaKey]?.joinToString(", ") { it.uppercase() } ?: getString(R.string.rest_day)
         view.findViewById<TextView>(R.id.txtGruposMusculares).text = musculosHoje
+
+        view.findViewById<TextView>(R.id.txtBtnComecarTreino).text = getString(R.string.start_btn)
 
         val mainActivity = requireActivity() as MainActivity
 
@@ -73,7 +76,8 @@ class MenuFragment : Fragment() {
             R.id.btnTreinoSemana to TreinoSemanaFragment(),
             R.id.btnRegistrarPeso to RegistrarPesoFragment(),
             R.id.btnVerImc to ImcFragment(),
-            R.id.btnAtualizarPerfil to PerfilFragment()
+            R.id.btnAtualizarPerfil to PerfilFragment(),
+            R.id.btnPersonalizarTreinos to PersonalizarTreinosFragment()
         )
 
         navMap.forEach { (id, fragment) ->

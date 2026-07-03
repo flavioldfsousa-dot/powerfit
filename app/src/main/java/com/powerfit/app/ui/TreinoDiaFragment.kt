@@ -34,26 +34,26 @@ class TreinoDiaFragment : Fragment() {
         }
 
         val txtTituloHeader = view.findViewById<TextView>(R.id.txtTituloHeader)
-        txtTituloHeader.text = "TREINO DO DIA"
+        txtTituloHeader.text = getString(R.string.today_workout_title)
 
         val container = view.findViewById<LinearLayout>(R.id.containerExercicios)
         val usuario = DatabaseHelper.carregar(requireContext())
 
         val diasMap = mapOf(
-            Calendar.MONDAY to "Segunda", Calendar.TUESDAY to "Terca",
-            Calendar.WEDNESDAY to "Quarta", Calendar.THURSDAY to "Quinta",
-            Calendar.FRIDAY to "Sexta", Calendar.SATURDAY to "Sabado"
+            Calendar.MONDAY to getString(R.string.monday), Calendar.TUESDAY to getString(R.string.tuesday),
+            Calendar.WEDNESDAY to getString(R.string.wednesday), Calendar.THURSDAY to getString(R.string.thursday),
+            Calendar.FRIDAY to getString(R.string.friday), Calendar.SATURDAY to getString(R.string.saturday)
         )
-        val dia = diasMap[Calendar.getInstance().get(Calendar.DAY_OF_WEEK)] ?: "Domingo"
+        val dia = diasMap[Calendar.getInstance().get(Calendar.DAY_OF_WEEK)] ?: getString(R.string.sunday)
 
-        view.findViewById<TextView>(R.id.txtTitulo).text = "TREINO - $dia"
+        view.findViewById<TextView>(R.id.txtTitulo).text = "${getString(R.string.workout_day)} - $dia"
 
         val musculos = Exercicios.splitSemanal[dia] ?: emptyList()
-        view.findViewById<TextView>(R.id.txtSubtitulo).text = "Musculos: ${musculos.joinToString(", ") { it.uppercase() }}"
+        view.findViewById<TextView>(R.id.txtSubtitulo).text = "${getString(R.string.workouts_by_muscle)}: ${musculos.joinToString(", ") { it.uppercase() }}"
 
         if (musculos.isEmpty()) {
             val txtDescanso = TextView(requireContext()).apply {
-                text = "Hoje e dia de descanso!"
+                text = getString(R.string.rest_day)
                 setTextColor(ContextCompat.getColor(context, R.color.texto))
                 textSize = 16f
                 gravity = Gravity.CENTER
@@ -127,7 +127,7 @@ class TreinoDiaFragment : Fragment() {
                 card.addView(txtNome)
 
                 val chipAparelho = TextView(requireContext()).apply {
-                    text = "Aparelho: ${ex.aparelho}"
+                    text = "${getString(R.string.equipment)}: ${ex.aparelho}"
                     setTextColor(ContextCompat.getColor(context, R.color.accent))
                     textSize = 12f
                     typeface = Typeface.DEFAULT_BOLD
@@ -156,7 +156,7 @@ class TreinoDiaFragment : Fragment() {
                 }
 
                 val txtInfo = TextView(requireContext()).apply {
-                    text = "${ex.series}x ${ex.reps} | Descanso: ${ex.descanso}s"
+                    text = "${ex.series}x ${ex.reps} | ${getString(R.string.rest_label)}: ${ex.descanso}s"
                     setTextColor(ContextCompat.getColor(context, R.color.texto))
                     textSize = 14f
                     layoutParams = LinearLayout.LayoutParams(
@@ -168,7 +168,7 @@ class TreinoDiaFragment : Fragment() {
 
                 if (ex.alternativasCasa.isNotEmpty()) {
                     val txtAltCasaLabel = TextView(requireContext()).apply {
-                        text = "Alternativas em casa:"
+                        text = getString(R.string.alt_home)
                         setTextColor(ContextCompat.getColor(context, R.color.amarelo))
                         textSize = 12f
                         typeface = Typeface.DEFAULT_BOLD
@@ -189,7 +189,7 @@ class TreinoDiaFragment : Fragment() {
 
                 if (ex.alternativasAparelho.isNotEmpty()) {
                     val txtAltAparelhoLabel = TextView(requireContext()).apply {
-                        text = "Alternativas com aparelho:"
+                        text = getString(R.string.alt_equipment)
                         setTextColor(ContextCompat.getColor(context, R.color.accent2))
                         textSize = 12f
                         typeface = Typeface.DEFAULT_BOLD

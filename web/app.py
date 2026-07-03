@@ -196,6 +196,10 @@ def treino(grupo):
 def semana():
     return render_template("semana.html")
 
+@app.route("/personalizar")
+def personalizar():
+    return render_template("personalizar.html")
+
 @app.route("/timer")
 def timer():
     return render_template("timer.html")

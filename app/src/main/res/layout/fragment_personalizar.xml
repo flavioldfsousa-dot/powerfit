@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0A0F"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_header" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/customize_title"
+        android:textColor="#FF2D55"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif-medium"
+        android:paddingHorizontal="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnForca"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_accent"
+            android:text="@string/strength"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnDefinicao"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chip"
+            android:text="@string/definition"
+            android:textColor="#E8E8F0"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnPerdaPeso"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chip"
+            android:text="@string/weight_loss"
+            android:textColor="#E8E8F0"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="20dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/listaExercicios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="24dp">
+
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_accent"
+            android:text="@string/save_customization"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnResetar"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chip"
+            android:text="@string/restore_default"
+            android:textColor="#E8E8F0"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

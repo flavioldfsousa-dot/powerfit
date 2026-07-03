@@ -36,7 +36,7 @@ class AssistenteFragment : Fragment() {
         view.findViewById<ImageButton>(R.id.btnVoltar).setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        view.findViewById<TextView>(R.id.txtTituloHeader).text = "ASSISTENTE IA"
+        view.findViewById<TextView>(R.id.txtTituloHeader).text = getString(R.string.ai_title)
 
         containerChat = view.findViewById(R.id.containerChat)
         scrollChat = view.findViewById(R.id.scrollChat)
@@ -54,14 +54,8 @@ class AssistenteFragment : Fragment() {
         }
 
         adicionarMensagemBot(
-            "Ola! Sou seu assistente de treinos. Pode perguntar sobre:\n\n" +
-                    "- Treinos e exercicios\n" +
-                    "- Alimentacao e hidratacao\n" +
-                    "- Descanso e recuperacao\n" +
-                    "- Motivacao\n" +
-                    "- IMC e saude\n\n" +
-                    "Como posso te ajudar?",
-            listOf("Treino de hoje", "Me motive", "Dica de alimentacao")
+            getString(R.string.ai_greeting_full),
+            listOf(getString(R.string.ai_suggestion_1), getString(R.string.ai_suggestion_2), getString(R.string.ai_suggestion_3))
         )
     }
 

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Zentrox Fit</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='translations.js') }}"></script>
+    <script src="{{ url_for('static', filename='i18n.js') }}"></script>
 </head>
 <body>
     <div class="screen">
@@ -90,6 +92,10 @@
                 <a href="/perfil" class="tool-card">
                     <div class="tool-icon">👤</div>
                     <div class="tool-name">Perfil</div>
+                </a>
+                <a href="/personalizar" class="tool-card">
+                    <div class="tool-icon">✏️</div>
+                    <div class="tool-name">Personalizar Treinos</div>
                 </a>
             </div>
         </div>

@@ -21,7 +21,7 @@
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TREINO DO DIA"
+            android:text="@string/today_workout_title"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:id="@+id/txtSubtitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TREINO - Segunda"
+            android:text="@string/workout_day"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             android:alpha="0.8" />

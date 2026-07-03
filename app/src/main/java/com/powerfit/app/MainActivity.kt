@@ -1,6 +1,8 @@
 package com.powerfit.app
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -12,10 +14,25 @@ class MainActivity : AppCompatActivity() {
     lateinit var bottomNav: BottomNavigationView
         private set
 
+    private var lightningBg: LightningBackgroundView? = null
+    private val animationHandler = Handler(Looper.getMainLooper())
+    private var lastFrameTime = 0L
+
+    private val animationRunnable = object : Runnable {
+        override fun run() {
+            val currentTime = System.currentTimeMillis()
+            val deltaTime = if (lastFrameTime == 0L) 16f else (currentTime - lastFrameTime).toFloat()
+            lastFrameTime = currentTime
+            lightningBg?.updateAnimation(deltaTime)
+            animationHandler.postDelayed(this, 16)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        lightningBg = findViewById(R.id.lightningBg)
         bottomNav = findViewById(R.id.bottomNavigation)
 
         val usuario = com.powerfit.app.data.DatabaseHelper.carregar(this)
@@ -55,6 +72,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lastFrameTime = 0L
+        animationHandler.post(animationRunnable)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        animationHandler.removeCallbacks(animationRunnable)
     }
 
     override fun onBackPressed() {

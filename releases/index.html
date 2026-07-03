@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zentrox Fit - Downloads</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0A0A0F;
+            color: #FFFFFF;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .logo { 
+            width: 100px; height: 100px; 
+            background: linear-gradient(135deg, #FF2D55, #FF6B35);
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 40px; font-weight: bold;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 30px rgba(255,45,85,0.4);
+        }
+        h1 { font-size: 28px; margin-bottom: 8px; }
+        .subtitle { color: #8888A0; margin-bottom: 30px; }
+        .download-card {
+            background: #14141E;
+            border: 1px solid #2A2A3E;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: transform 0.2s;
+        }
+        .download-card:hover { transform: translateY(-2px); }
+        .platform-icon { font-size: 32px; margin-bottom: 12px; }
+        .platform-name { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .platform-desc { color: #8888A0; font-size: 14px; margin-bottom: 16px; }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-primary { background: #FF2D55; color: white; }
+        .btn-secondary { background: #2A2A3E; color: #E8E8F0; }
+        .instructions {
+            background: #14141E;
+            border: 1px solid #2A2A3E;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .instructions h3 { margin-bottom: 12px; }
+        .instructions ol { padding-left: 20px; color: #8888A0; }
+        .instructions li { margin-bottom: 8px; }
+        .languages { 
+            display: flex; 
+            gap: 8px; 
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .lang { 
+            padding: 6px 12px;
+            background: #1A1A2E;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Z</div>
+            <h1>Zentrox Fit</h1>
+            <p class="subtitle">App de treino personalizado</p>
+        </div>
+
+        <a href="https://github.com/SEU_USUARIO/projeto-001/releases/latest/download/ZentroxFit.apk" class="download-card" style="text-decoration:none; color:inherit;">
+            <div class="platform-icon">🤖</div>
+            <div class="platform-name">Android (APK)</div>
+            <div class="platform-desc">Compativel com Android 7.0+</div>
+            <div class="btn btn-primary">BAIXAR APK</div>
+        </a>
+
+        <div class="download-card">
+            <div class="platform-icon">🍎</div>
+            <div class="platform-name">iOS</div>
+            <div class="platform-desc">Necessario Xcode para instalar</div>
+            <a href="https://github.com/SEU_USUARIO/projeto-001/tree/main/ios" class="btn btn-secondary" style="text-decoration:none;">
+                VER INSTRUCOES
+            </a>
+        </div>
+
+        <div class="download-card">
+            <div class="platform-icon">🌐</div>
+            <div class="platform-name">Web App</div>
+            <div class="platform-desc">Funciona em qualquer navegador</div>
+            <div class="btn btn-secondary" onclick="alert('Execute: cd web && python3 app.py')">
+                COMO RODAR
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📱 Como Instalar (Android)</h3>
+            <ol>
+                <li>Baixe o arquivo <strong>ZentroxFit.apk</strong></li>
+                <li>No celular, va em <strong>Configuracoes > Seguranca</strong></li>
+                <li>Ative <strong>"Fontes desconhecidas"</strong></li>
+                <li>Abra o arquivo APK e instale</li>
+            </ol>
+        </div>
+
+        <div class="languages">
+            <span class="lang">🇧🇷 PT</span>
+            <span class="lang">🇺🇸 EN</span>
+            <span class="lang">🇪🇸 ES</span>
+            <span class="lang">🇫🇷 FR</span>
+            <span class="lang">🇩🇪 DE</span>
+            <span class="lang">🇯🇵 JA</span>
+        </div>
+    </div>
+</body>
+</html>

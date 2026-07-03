@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treino - Zentrox Fit</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='translations.js') }}"></script>
+    <script src="{{ url_for('static', filename='i18n.js') }}"></script>
 </head>
 <body>
     <div class="screen">
@@ -26,6 +28,10 @@
             </div>
             
             <div id="exercicios-list"></div>
+            
+            <div class="personalizar-link">
+                <a href="/personalizar">✏️ Personalizar ordem dos exercicios</a>
+            </div>
         </div>
         <div class="bottom-bar">
             <button class="btn-treino" onclick="window.location.href='/timer'">INICIAR TREINO</button>
@@ -45,10 +51,25 @@
         }
         
         async function carregarExercicios() {
-            const res = await fetch(`/api/exercicios/${grupo}/${objetivo}`);
-            const exercicios = await res.json();
+            const saved = localStorage.getItem(`zentrox_schedule_${objetivo}`);
+            let exercicios;
+            
+            if (saved) {
+                const schedule = JSON.parse(saved);
+                exercicios = schedule[grupo] || [];
+            } else {
+                const res = await fetch(`/api/exercicios/${grupo}/${objetivo}`);
+                exercicios = await res.json();
+            }
+            
             const container = document.getElementById('exercicios-list');
             container.innerHTML = '';
+            
+            if (exercicios.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">Nenhum exercicio encontrado</div></div>';
+                return;
+            }
+            
             exercicios.forEach((ex, i) => {
                 container.innerHTML += `
                     <div class="exercise-card">
