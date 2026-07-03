@@ -10,9 +10,9 @@ android {
     defaultConfig {
         applicationId = "com.powerfit.app"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 31
-        versionName = "3.0.0"
+        targetSdk = 33
+        versionCode = 32
+        versionName = "3.0.1"
     }
 
     signingConfigs {
@@ -27,6 +27,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            isShrinkResources = false
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }

@@ -40,8 +40,24 @@ jobs:
       - name: Build Release APK
         run: gradle assembleRelease
 
+      - name: Align APK
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/zipalign -v -p 4 \
+            app/build/outputs/apk/release/app-release.apk \
+            app/build/outputs/apk/release/app-release-aligned.apk
+
+      - name: Sign APK
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+            --ks app/release-key.jks \
+            --ks-pass pass:zentroxfit2026 \
+            --key-pass pass:zentroxfit2026 \
+            --ks-key-alias zentroxfit \
+            app/build/outputs/apk/release/app-release-aligned.apk
+
       - name: Copy APK to root
-        run: cp app/build/outputs/apk/release/app-release.apk ./ZentroxFit.apk
+        run: |
+          cp app/build/outputs/apk/release/app-release-aligned.apk ./ZentroxFit.apk
 
       - name: Delete old releases
         run: |
