@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/menu'">←</div>
+            <div class="header-title">PLANO SEMANAL</div>
+        </div>
+        <div class="content scrollable">
+            <div id="semana-list"></div>
+        </div>
+        <nav class="bottom-nav">
+            <a href="/menu" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Inicio</div>
+            </a>
+            <a href="/semana" class="nav-item active">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Semana</div>
+            </a>
+            <a href="/assistente" class="nav-item">
+                <div class="nav-icon">🤖</div>
+                <div class="nav-label">IA</div>
+            </a>
+            <a href="/historico" class="nav-item">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Historico</div>
+            </a>
+            <a href="/perfil" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Perfil</div>
+            </a>
+        </nav>
+    </div>
+    <script>
+        const semana = [
+            { dia: 'Segunda', grupo: 'peito', treino: 'Peito', icon: '🏋️' },
+            { dia: 'Terca', grupo: 'costas', treino: 'Costas', icon: '💪' },
+            { dia: 'Quarta', grupo: 'pernas', treino: 'Pernas', icon: '🦵' },
+            { dia: 'Quinta', grupo: 'ombros', treino: 'Ombros', icon: '🎯' },
+            { dia: 'Sexta', grupo: 'bracos', treino: 'Bracos', icon: '💪' },
+            { dia: 'Sabado', grupo: 'pernas', treino: 'Pernas', icon: '🦵' },
+            { dia: 'Domingo', grupo: null, treino: 'Descanso', icon: '😴' }
+        ];
+        
+        const hoje = new Date().getDay();
+        const container = document.getElementById('semana-list');
+        
+        semana.forEach((item, i) => {
+            const isHoje = i === hoje;
+            const href = item.grupo ? `/treino/${item.grupo}` : '#';
+            container.innerHTML += `
+                <a href="${href}" class="semana-card ${isHoje ? 'hoje' : ''}">
+                    <div class="semana-icon">${item.icon}</div>
+                    <div class="semana-info">
+                        <div class="semana-dia">${item.dia}</div>
+                        <div class="semana-treino">${item.treino}</div>
+                    </div>
+                    ${isHoje ? '<div class="semana-badge">HOJE</div>' : ''}
+                </a>
+            `;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente IA - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/menu'">←</div>
+            <div class="header-title">ASSISTENTE IA</div>
+        </div>
+        <div class="chat-container" id="chat">
+            <div class="chat-message bot">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">Ola! Sou o assistente do Zentrox Fit. Como posso te ajudar hoje?</div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter')enviar()">
+            <button class="chat-send" onclick="enviar()">Enviar</button>
+        </div>
+    </div>
+    <script>
+        async function enviar() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+            
+            addMessage(msg, 'user');
+            input.value = '';
+            
+            const res = await fetch('/api/assistente', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mensagem: msg })
+            });
+            const data = await res.json();
+            addMessage(data.resposta, 'bot');
+        }
+        
+        function addMessage(text, type) {
+            const chat = document.getElementById('chat');
+            const avatar = type === 'user' ? '👤' : '🤖';
+            chat.innerHTML += `
+                <div class="chat-message ${type}">
+                    <div class="chat-avatar">${avatar}</div>
+                    <div class="chat-bubble">${text}</div>
+                </div>
+            `;
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>

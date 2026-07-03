@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Peso - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/menu'">←</div>
+            <div class="header-title">REGISTRO DE PESO</div>
+        </div>
+        <div class="content scrollable">
+            <div class="form-group">
+                <label>Seu peso hoje (kg)</label>
+                <input type="number" id="peso-input" placeholder="70.5" step="0.1">
+            </div>
+            <button class="btn-primary" onclick="registrar()">REGISTRAR</button>
+            
+            <div class="section-title">Historico de Peso</div>
+            <div id="peso-list"></div>
+        </div>
+    </div>
+    <script>
+        function registrar() {
+            const peso = parseFloat(document.getElementById('peso-input').value);
+            if (!peso) { alert('Digite seu peso!'); return; }
+            
+            const registros = JSON.parse(localStorage.getItem('zentrox_peso') || '[]');
+            const hoje = new Date().toISOString().split('T')[0];
+            
+            registros.push({ data: hoje, peso: peso });
+            localStorage.setItem('zentrox_peso', JSON.stringify(registros));
+            document.getElementById('peso-input').value = '';
+            carregar();
+        }
+        
+        function carregar() {
+            const registros = JSON.parse(localStorage.getItem('zentrox_peso') || '[]');
+            const container = document.getElementById('peso-list');
+            container.innerHTML = '';
+            
+            registros.sort((a, b) => b.data.localeCompare(a.data));
+            registros.forEach((r, i) => {
+                const anterior = registros[i + 1];
+                let diff = '';
+                if (anterior) {
+                    const d = (r.peso - anterior.peso).toFixed(1);
+                    const cor = d > 0 ? '#FF2D55' : d < 0 ? '#4CAF50' : '#888';
+                    diff = `<span style="color:${cor}">${d > 0 ? '+' : ''}${d}kg</span>`;
+                }
+                
+                const data = new Date(r.data + 'T12:00:00');
+                container.innerHTML += `
+                    <div class="weight-card">
+                        <div class="weight-date">${data.toLocaleDateString('pt-BR')}</div>
+                        <div class="weight-value">${r.peso} kg</div>
+                        <div class="weight-diff">${diff}</div>
+                    </div>
+                `;
+            });
+        }
+        
+        carregar();
+    </script>
+</body>
+</html>

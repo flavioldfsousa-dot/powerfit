@@ -9,6 +9,7 @@ object AssistenteIA {
 
     private var ultimoTopico: String = ""
     private var contadorInteracoes: Int = 0
+    private var objetivoContexto: String = ""
 
     fun responder(pergunta: String, context: Context): Resposta {
         val p = pergunta.lowercase().trim()
@@ -39,6 +40,14 @@ object AssistenteIA {
             return fechamento(usuario)
         }
 
+        if (p.contains("perder") && (p.contains("peso") || p.contains("gordura") || p.contains("barriga"))) {
+            objetivoContexto = "perda_peso"
+        } else if (p.contains("forca") || p.contains("fortalecer") || p.contains("massa") || p.contains("crescer")) {
+            objetivoContexto = "forca"
+        } else if (p.contains("definiç") || p.contains("definir") || p.contains("tonificar") || p.contains("secar")) {
+            objetivoContexto = "definicao"
+        }
+
         return when {
             p.contains("oi") || p.contains("ola") || p.contains("bom dia") || p.contains("boa tarde") || p.contains("boa noite") -> smartGreeting(usuario)
             p.contains("treino") && p.contains("hoje") -> treinoHoje(usuario, dia)
@@ -55,7 +64,7 @@ object AssistenteIA {
             }
             p.contains("cardio") || p.contains("aerobico") || p.contains("correr") || p.contains("esteira") -> {
                 ultimoTopico = "cardio"
-                cardioVsForca(usuario)
+                cardioContextual(usuario)
             }
             p.contains("aquec") || p.contains("warm up") -> {
                 ultimoTopico = "aquecimento"
@@ -81,7 +90,19 @@ object AssistenteIA {
                 ultimoTopico = "sono"
                 sonoOtimizado()
             }
-            p.contains("pre treino") || p.contains("pretreino") || p.contains("antes do treino") || p.contains("pos treino") || p.contains("pós treino") || p.contains("depois do treino") || p.contains("nutriç") || p.contains("nutric") || p.contains("comida") || p.contains("alimentaç") || p.contains("dieta") || p.contains("comer") || p.contains("refeicao") || p.contains("lanche") -> {
+            p.contains("depois do treino") || p.contains("pos treino") || p.contains("apos treino") -> {
+                ultimoTopico = "pos_treino"
+                posTreinoContextual(usuario)
+            }
+            p.contains("dieta") || p.contains("alimentaç") || p.contains("comida") || p.contains("comer") || p.contains("o que comer") -> {
+                ultimoTopico = "dieta"
+                dietaContextual(usuario)
+            }
+            p.contains("musculaç") || p.contains("musculo") || p.contains("treinar musculo") -> {
+                ultimoTopico = "musculacao"
+                musculacaoContextual(usuario)
+            }
+            p.contains("pre treino") || p.contains("pretreino") || p.contains("antes do treino") || p.contains("nutriç") || p.contains("nutric") || p.contains("refeicao") || p.contains("lanche") -> {
                 ultimoTopico = "nutricao_timing"
                 nutricaoTiming(usuario)
             }
@@ -1355,6 +1376,185 @@ object AssistenteIA {
                     "Voce ja esta no caminho certo! Continue!",
             listOf("Treino de hoje", "Me motive", "Como acompanhar progresso")
         )
+    }
+
+    private fun posTreinoContextual(usuario: Usuario): Resposta {
+        val objetivo = objetivoContexto.ifEmpty { usuario.objetivo }
+        val texto = buildString {
+            appendLine("APOS O TREINO - ${objetivo.uppercase()}")
+            appendLine()
+            when (objetivo) {
+                "perda_peso" -> {
+                    appendLine("PARA PERDA DE PESO:")
+                    appendLine("1. Cardio: 30min (corrida, bike, eliptico)")
+                    appendLine("2. Beba agua gradualmente")
+                    appendLine("3. Lanche: whey + fruta (ate 1h apos)")
+                    appendLine("4. Durma 7-8h (recuperacao)")
+                    appendLine()
+                    appendLine("CARDIO DEPOIS DO TREINO QUEIMA MAIS GORDURA!")
+                    appendLine("O corpo ja esta em modo queima de gordura.")
+                }
+                "forca" -> {
+                    appendLine("PARA GANHO DE MASSA:")
+                    appendLine("1. Lanche: whey + aveia + banana")
+                    appendLine("2. Beba agua")
+                    appendLine("3. Durma 7-8h (musculos crescem no sono)")
+                    appendLine("4. Prossiga com a dieta (superavit)")
+                    appendLine()
+                    appendLine("MUSCULOS CRESCEM DURANTE O DESCANSO!")
+                }
+                "definicao" -> {
+                    appendLine("PARA DEFINICAO:")
+                    appendLine("1. Cardio leve: 15-20min")
+                    appendLine("2. Lanche: proteina + fruta")
+                    appendLine("3. Beba agua")
+                    appendLine("4. Durma 7-8h")
+                    appendLine()
+                    appendLine("MANTENHA A DIETA (deficit leve)!")
+                }
+                else -> {
+                    appendLine("APOS O TREINO:")
+                    appendLine("1. Alongue 10min")
+                    appendLine("2. Beba agua")
+                    appendLine("3. Coma proteina (whey ou frango)")
+                    appendLine("4. Durma 7-8h")
+                }
+            }
+        }
+        return Resposta(texto, listOf("Dieta completa", "Cardio ideal", "Treino de amanha"))
+    }
+
+    private fun dietaContextual(usuario: Usuario): Resposta {
+        val objetivo = objetivoContexto.ifEmpty { usuario.objetivo }
+        val proteinaDiaria = (usuario.peso * 2.0).toInt()
+        val texto = buildString {
+            appendLine("DIETA PARA ${objetivo.uppercase()}")
+            appendLine()
+            appendLine("Proteina diaria: ${proteinaDiaria}g")
+            appendLine()
+            when (objetivo) {
+                "perda_peso" -> {
+                    appendLine("Cafe da manha: 2 ovos + fruta + cafe")
+                    appendLine("Lanche: fruta + oleaginosas")
+                    appendLine("Almoco: arroz + frango + salada")
+                    appendLine("Lanche: whey + fruta")
+                    appendLine("Jantar: peixe + legumes")
+                    appendLine("Ceia: queijo cottage (opcional)")
+                    appendLine()
+                    appendLine("DEFICIT: 300-500 cal/dia")
+                    appendLine("Beba 3L de agua por dia!")
+                }
+                "forca" -> {
+                    appendLine("Cafe: aveia + ovo + banana + whey")
+                    appendLine("Lanche: fruta + pasta de amendoim")
+                    appendLine("Almoco: arroz + carne + feijao + salada")
+                    appendLine("Pre-treino: batata doce + frango")
+                    appendLine("Pos-treino: whey + banana")
+                    appendLine("Jantar: frango + arroz + legumes")
+                    appendLine()
+                    appendLine("SUPERAVIT: +200-300 cal/dia")
+                }
+                "definicao" -> {
+                    appendLine("Cafe: ovo + fruta + cafe")
+                    appendLine("Lanche: fruta + castanhas")
+                    appendLine("Almoco: arroz + peixe + legumes")
+                    appendLine("Lanche: whey + fruta")
+                    appendLine("Jantar: frango + salada")
+                    appendLine()
+                    appendLine("DEFICIT LEVE: 200-300 cal/dia")
+                }
+                else -> {
+                    appendLine("Cafe: ovo + fruta")
+                    appendLine("Almoco: arroz + proteina + salada")
+                    appendLine("Jantar: proteina + legumes")
+                    appendLine("Lanches: frutas, whey, castanhas")
+                }
+            }
+        }
+        return Resposta(texto, listOf("Treino de hoje", "Cardio ideal", "Suplementacao"))
+    }
+
+    private fun musculacaoContextual(usuario: Usuario): Resposta {
+        val objetivo = objetivoContexto.ifEmpty { usuario.objetivo }
+        val texto = buildString {
+            appendLine("MUSCULACAO - ${objetivo.uppercase()}")
+            appendLine()
+            appendLine("DIVISAO RECOMENDADA:")
+            appendLine("Segunda-Peito | Terca-Costas | Quarta-Pernas")
+            appendLine("Quinta-Ombros | Sexta-Bracos | Sabado-Pernas")
+            appendLine()
+            appendLine("QUAL MUSCULO VOCE QUER TREINAR?")
+            appendLine()
+            when (objetivo) {
+                "perda_peso" -> {
+                    appendLine("PROTOCOLO: series longas (12-15 reps)")
+                    appendLine("Descanso: 30-45s entre series")
+                    appendLine("Foco em: circuitos e superseries")
+                }
+                "forca" -> {
+                    appendLine("PROTOCOLO: series curtas (4-8 reps)")
+                    appendLine("Descanso: 90-120s entre series")
+                    appendLine("Foco em: cargas altas e progredir")
+                }
+                "definicao" -> {
+                    appendLine("PROTOCOLO: series medias (12-15 reps)")
+                    appendLine("Descanso: 45-60s entre series")
+                    appendLine("Foco em: controle e conexao mente-musculo")
+                }
+            }
+        }
+        return Resposta(texto, listOf("Peito", "Costas", "Pernas", "Ombros", "Bracos", "Abdomen"))
+    }
+
+    private fun cardioContextual(usuario: Usuario): Resposta {
+        val objetivo = objetivoContexto.ifEmpty { usuario.objetivo }
+        val texto = buildString {
+            appendLine("CARDIO - ${objetivo.uppercase()}")
+            appendLine()
+            when (objetivo) {
+                "perda_peso" -> {
+                    appendLine("PARA PERDA DE PESO:")
+                    appendLine("3x por semana, 30-45 minutos")
+                    appendLine()
+                    appendLine("OPCOES:")
+                    appendLine("- Corrida (30min)")
+                    appendLine("- Bicicleta (40min)")
+                    appendLine("- Eliptico (30min)")
+                    appendLine("- HIIT (20min)")
+                    appendLine()
+                    appendLine("DICA: Faca cardio EM JEJUM ou apos musculacao!")
+                    appendLine("Isso queima mais gordura.")
+                }
+                "forca" -> {
+                    appendLine("PARA FORCA:")
+                    appendLine("Apenas 1-2x por semana (20-30min)")
+                    appendLine()
+                    appendLine("OPCOES:")
+                    appendLine("- Caminhada rapida (20min)")
+                    appendLine("- Bicicleta leve (30min)")
+                    appendLine()
+                    appendLine("CUIDADO: Muito cardio prejudica ganhos de massa!")
+                }
+                "definicao" -> {
+                    appendLine("PARA DEFINICAO:")
+                    appendLine("2-3x por semana, 20-30 minutos")
+                    appendLine()
+                    appendLine("OPCOES:")
+                    appendLine("- HIIT (20min) - melhor opcao")
+                    appendLine("- Corrida (25min)")
+                    appendLine("- Bicicleta (30min)")
+                    appendLine()
+                    appendLine("DICA: Faca cardio no final do treino!")
+                }
+                else -> {
+                    appendLine("CARDIO GERAL:")
+                    appendLine("3x por semana, 30 minutos")
+                    appendLine()
+                    appendLine("OPCOES: corrida, bike, eliptico, HIIT")
+                }
+            }
+        }
+        return Resposta(texto, listOf("Treino de hoje", "Dieta completa", "Dica de recuperacao"))
     }
 
     private fun obterDiaSemana(): String {

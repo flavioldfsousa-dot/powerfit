@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historico - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/menu'">←</div>
+            <div class="header-title">HISTORICO</div>
+        </div>
+        <div class="content scrollable">
+            <div id="historico-list">
+                <div class="empty-state">
+                    <div class="empty-icon">📊</div>
+                    <div class="empty-text">Nenhum treino registrado ainda</div>
+                </div>
+            </div>
+        </div>
+        <nav class="bottom-nav">
+            <a href="/menu" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Inicio</div>
+            </a>
+            <a href="/semana" class="nav-item">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Semana</div>
+            </a>
+            <a href="/assistente" class="nav-item">
+                <div class="nav-icon">🤖</div>
+                <div class="nav-label">IA</div>
+            </a>
+            <a href="/historico" class="nav-item active">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Historico</div>
+            </a>
+            <a href="/perfil" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Perfil</div>
+            </a>
+        </nav>
+    </div>
+    <script>
+        const historico = JSON.parse(localStorage.getItem('zentrox_historico') || '[]');
+        const container = document.getElementById('historico-list');
+        
+        if (historico.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">📊</div>
+                    <div class="empty-text">Nenhum treino registrado ainda</div>
+                </div>
+            `;
+        } else {
+            historico.sort((a, b) => b.data.localeCompare(a.data));
+            historico.forEach(h => {
+                const data = new Date(h.data + 'T12:00:00');
+                const dataStr = data.toLocaleDateString('pt-BR');
+                container.innerHTML += `
+                    <div class="history-card">
+                        <div class="history-date">${dataStr}</div>
+                        <div class="history-muscle">${h.muscle}</div>
+                        <div class="history-obj">${h.objetivo}</div>
+                        <button class="btn-delete" onclick="deletar('${h.data}')">✕</button>
+                    </div>
+                `;
+            });
+        }
+        
+        function deletar(data) {
+            const novoh = historico.filter(h => h.data !== data);
+            localStorage.setItem('zentrox_historico', JSON.stringify(novoh));
+            location.reload();
+        }
+    </script>
+</body>
+</html>

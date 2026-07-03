@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/menu'">←</div>
+            <div class="header-title">TIMER</div>
+        </div>
+        <div class="content">
+            <div class="timer-container">
+                <div class="timer-circle" id="timer-circle">
+                    <div class="timer-value" id="timer-value">01:30</div>
+                    <div class="timer-label">DESCANSO</div>
+                </div>
+            </div>
+            
+            <div class="timer-presets">
+                <button class="timer-preset active" onclick="setTimer(this, 30)">30s</button>
+                <button class="timer-preset" onclick="setTimer(this, 45)">45s</button>
+                <button class="timer-preset" onclick="setTimer(this, 60)">60s</button>
+                <button class="timer-preset" onclick="setTimer(this, 90)">90s</button>
+                <button class="timer-preset" onclick="setTimer(this, 120)">120s</button>
+            </div>
+            
+            <div class="timer-controls">
+                <button class="btn-timer btn-start" id="btn-start" onclick="toggleTimer()">INICIAR</button>
+                <button class="btn-timer btn-reset" onclick="resetTimer()">RESETAR</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let segundos = 90;
+        let total = 90;
+        let intervalo = null;
+        let rodando = false;
+        
+        function updateDisplay() {
+            const min = Math.floor(segundos / 60).toString().padStart(2, '0');
+            const seg = (segundos % 60).toString().padStart(2, '0');
+            document.getElementById('timer-value').textContent = `${min}:${seg}`;
+            const pct = ((total - segundos) / total) * 100;
+            document.getElementById('timer-circle').style.background = 
+                `conic-gradient(#FF2D55 ${pct}%, #1A1A2E ${pct}%)`;
+        }
+        
+        function setTimer(el, s) {
+            document.querySelectorAll('.timer-preset').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            segundos = s;
+            total = s;
+            if (rodando) { clearInterval(intervalo); rodando = false; }
+            document.getElementById('btn-start').textContent = 'INICIAR';
+            document.getElementById('btn-start').classList.remove('btn-pause');
+            updateDisplay();
+        }
+        
+        function toggleTimer() {
+            if (rodando) {
+                clearInterval(intervalo);
+                rodando = false;
+                document.getElementById('btn-start').textContent = 'INICIAR';
+                document.getElementById('btn-start').classList.remove('btn-pause');
+            } else {
+                rodando = true;
+                document.getElementById('btn-start').textContent = 'PAUSAR';
+                document.getElementById('btn-start').classList.add('btn-pause');
+                intervalo = setInterval(() => {
+                    if (segundos > 0) {
+                        segundos--;
+                        updateDisplay();
+                    } else {
+                        clearInterval(intervalo);
+                        rodando = false;
+                        document.getElementById('btn-start').textContent = 'INICIAR';
+                        document.getElementById('btn-start').classList.remove('btn-pause');
+                        if (Notification.permission === 'granted') {
+                            new Notification('Tempo esgotado!');
+                        }
+                    }
+                }, 1000);
+            }
+        }
+        
+        function resetTimer() {
+            clearInterval(intervalo);
+            rodando = false;
+            segundos = total;
+            document.getElementById('btn-start').textContent = 'INICIAR';
+            document.getElementById('btn-start').classList.remove('btn-pause');
+            updateDisplay();
+        }
+        
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+        
+        updateDisplay();
+    </script>
+</body>
+</html>

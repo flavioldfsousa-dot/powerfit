@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/menu'">←</div>
+            <div class="header-title">PERFIL</div>
+        </div>
+        <div class="content scrollable">
+            <div class="profile-card">
+                <div class="profile-avatar" id="avatar">A</div>
+                <div class="profile-name" id="name">Atleta</div>
+                <div class="profile-obj" id="obj">-</div>
+            </div>
+            
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" id="input-nome" placeholder="Seu nome">
+            </div>
+            <div class="form-group">
+                <label>Idade</label>
+                <input type="number" id="input-idade" placeholder="Sua idade">
+            </div>
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Peso (kg)</label>
+                    <input type="number" id="input-peso" placeholder="70" step="0.1">
+                </div>
+                <div class="form-group half">
+                    <label>Altura (cm)</label>
+                    <input type="number" id="input-altura" placeholder="175">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Objetivo</label>
+                <div class="chip-group">
+                    <button class="chip" onclick="selectObj(this)">Forca</button>
+                    <button class="chip" onclick="selectObj(this)">Definicao</button>
+                    <button class="chip" onclick="selectObj(this)">Perda de Peso</button>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="salvar()">SALVAR</button>
+        </div>
+        <nav class="bottom-nav">
+            <a href="/menu" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Inicio</div>
+            </a>
+            <a href="/semana" class="nav-item">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Semana</div>
+            </a>
+            <a href="/assistente" class="nav-item">
+                <div class="nav-icon">🤖</div>
+                <div class="nav-label">IA</div>
+            </a>
+            <a href="/historico" class="nav-item">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Historico</div>
+            </a>
+            <a href="/perfil" class="nav-item active">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Perfil</div>
+            </a>
+        </nav>
+    </div>
+    <script>
+        const usuario = JSON.parse(localStorage.getItem('zentrox_usuario') || '{}');
+        
+        if (usuario.nome) {
+            document.getElementById('input-nome').value = usuario.nome;
+            document.getElementById('input-idade').value = usuario.idade || '';
+            document.getElementById('input-peso').value = usuario.peso || '';
+            document.getElementById('input-altura').value = usuario.altura || '';
+            document.getElementById('avatar').textContent = usuario.nome.charAt(0).toUpperCase();
+            document.getElementById('name').textContent = usuario.nome;
+            document.getElementById('obj').textContent = usuario.objetivo || '-';
+            
+            if (usuario.objetivo) {
+                document.querySelectorAll('.chip').forEach(c => {
+                    if (c.textContent === usuario.objetivo) c.classList.add('selected');
+                });
+            }
+        }
+        
+        function selectObj(el) {
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        
+        function salvar() {
+            const obj = document.querySelector('.chip.selected');
+            const dados = {
+                nome: document.getElementById('input-nome').value,
+                idade: document.getElementById('input-idade').value,
+                peso: document.getElementById('input-peso').value,
+                altura: document.getElementById('input-altura').value,
+                objetivo: obj ? obj.textContent : ''
+            };
+            localStorage.setItem('zentrox_usuario', JSON.stringify(dados));
+            alert('Perfil salvo com sucesso!');
+            location.reload();
+        }
+    </script>
+</body>
+</html>

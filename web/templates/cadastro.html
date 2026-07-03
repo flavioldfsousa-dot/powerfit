@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-back" onclick="window.location.href='/'">←</div>
+            <div class="header-title">ZENTROX</div>
+        </div>
+        <div class="content">
+            <div class="cadastro-logo">Z</div>
+            <h1 class="cadastro-title">Bem-vindo ao Zentrox Fit</h1>
+            <p class="cadastro-subtitle">Configure seu perfil para comecar</p>
+            
+            <div class="form-group">
+                <label>Seu nome</label>
+                <input type="text" id="nome" placeholder="Digite seu nome">
+            </div>
+            
+            <div class="form-group">
+                <label>Idade</label>
+                <input type="number" id="idade" placeholder="Ex: 25">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Peso (kg)</label>
+                    <input type="number" id="peso" placeholder="70" step="0.1">
+                </div>
+                <div class="form-group half">
+                    <label>Altura (cm)</label>
+                    <input type="number" id="altura" placeholder="175">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Genero</label>
+                <div class="chip-group">
+                    <button class="chip" onclick="selectChip(this, 'genero')">Masculino</button>
+                    <button class="chip" onclick="selectChip(this, 'genero')">Feminino</button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Objetivo</label>
+                <div class="chip-group">
+                    <button class="chip" onclick="selectChip(this, 'objetivo')">Forca</button>
+                    <button class="chip" onclick="selectChip(this, 'objetivo')">Definicao</button>
+                    <button class="chip" onclick="selectChip(this, 'objetivo')">Perda de Peso</button>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="salvar()">COMECAR</button>
+        </div>
+    </div>
+    <script>
+        let selected = { genero: '', objetivo: '' };
+        
+        function selectChip(el, field) {
+            document.querySelectorAll(`.chip-group .chip`).forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selected[field] = el.textContent;
+        }
+        
+        function salvar() {
+            const dados = {
+                nome: document.getElementById('nome').value,
+                idade: document.getElementById('idade').value,
+                peso: document.getElementById('peso').value,
+                altura: document.getElementById('altura').value,
+                genero: selected.genero,
+                objetivo: selected.objetivo
+            };
+            localStorage.setItem('zentrox_usuario', JSON.stringify(dados));
+            window.location.href = '/menu';
+        }
+    </script>
+</body>
+</html>

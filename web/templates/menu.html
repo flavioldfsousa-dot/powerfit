@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Zentrox Fit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="screen">
+        <div class="header">
+            <div class="header-title">ZENTROX</div>
+        </div>
+        <div class="content scrollable">
+            <div class="hero-card">
+                <div class="hero-greeting" id="greeting">Ola!</div>
+                <div class="hero-subtitle">Pronto para treinar hoje?</div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value" id="streak">0</div>
+                        <div class="hero-stat-label">Dias seguidos</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value" id="total-treinos">0</div>
+                        <div class="hero-stat-label">Treinos feitos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-title">Hoje e dia de...</div>
+            <div class="treino-hoje-card" id="treino-hoje">
+                <div class="treino-hoje-icon">💪</div>
+                <div class="treino-hoje-info">
+                    <div class="treino-hoje-muscle" id="muscle-today">Carregando...</div>
+                    <div class="treino-hoje-subtitle">Toque para ver os exercicios</div>
+                </div>
+                <div class="treino-hoje-arrow">→</div>
+            </div>
+            
+            <div class="section-title">Treinos por musculo</div>
+            <div class="muscle-grid">
+                <a href="/treino/peito" class="muscle-card">
+                    <div class="muscle-icon">🏋️</div>
+                    <div class="muscle-name">Peito</div>
+                </a>
+                <a href="/treino/costas" class="muscle-card">
+                    <div class="muscle-icon">💪</div>
+                    <div class="muscle-name">Costas</div>
+                </a>
+                <a href="/treino/pernas" class="muscle-card">
+                    <div class="muscle-icon">🦵</div>
+                    <div class="muscle-name">Pernas</div>
+                </a>
+                <a href="/treino/ombros" class="muscle-card">
+                    <div class="muscle-icon">🎯</div>
+                    <div class="muscle-name">Ombros</div>
+                </a>
+                <a href="/treino/bracos" class="muscle-card">
+                    <div class="muscle-icon">💪</div>
+                    <div class="muscle-name">Bracos</div>
+                </a>
+                <a href="/treino/abdomen" class="muscle-card">
+                    <div class="muscle-icon">🎯</div>
+                    <div class="muscle-name">Abdomen</div>
+                </a>
+            </div>
+            
+            <div class="section-title">Ferramentas</div>
+            <div class="tools-grid">
+                <a href="/assistente" class="tool-card">
+                    <div class="tool-icon">🤖</div>
+                    <div class="tool-name">Assistente IA</div>
+                </a>
+                <a href="/timer" class="tool-card">
+                    <div class="tool-icon">⏱️</div>
+                    <div class="tool-name">Timer</div>
+                </a>
+                <a href="/historico" class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">Historico</div>
+                </a>
+                <a href="/peso" class="tool-card">
+                    <div class="tool-icon">⚖️</div>
+                    <div class="tool-name">Registro de Peso</div>
+                </a>
+                <a href="/imc" class="tool-card">
+                    <div class="tool-icon">📐</div>
+                    <div class="tool-name">Calcular IMC</div>
+                </a>
+                <a href="/perfil" class="tool-card">
+                    <div class="tool-icon">👤</div>
+                    <div class="tool-name">Perfil</div>
+                </a>
+            </div>
+        </div>
+        
+        <nav class="bottom-nav">
+            <a href="/menu" class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Inicio</div>
+            </a>
+            <a href="/semana" class="nav-item">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Semana</div>
+            </a>
+            <a href="/assistente" class="nav-item">
+                <div class="nav-icon">🤖</div>
+                <div class="nav-label">IA</div>
+            </a>
+            <a href="/historico" class="nav-item">
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">Historico</div>
+            </a>
+            <a href="/perfil" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Perfil</div>
+            </a>
+        </nav>
+    </div>
+    <script>
+        const usuario = JSON.parse(localStorage.getItem('zentrox_usuario') || '{}');
+        const nome = usuario.nome || 'Atleta';
+        document.getElementById('greeting').textContent = `Ola, ${nome}!`;
+        
+        const historico = JSON.parse(localStorage.getItem('zentrox_historico') || '[]');
+        document.getElementById('total-treinos').textContent = historico.length;
+        
+        let streak = 0;
+        if (historico.length > 0) {
+            const datas = historico.map(h => h.data).sort().reverse();
+            const hoje = new Date().toISOString().split('T')[0];
+            let dataCheck = new Date(hoje);
+            for (let d of datas) {
+                if (d === dataCheck.toISOString().split('T')[0]) {
+                    streak++;
+                    dataCheck.setDate(dataCheck.getDate() - 1);
+                } else break;
+            }
+        }
+        document.getElementById('streak').textContent = streak;
+        
+        const dias = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+        const treinos = { 0: 'Descanso', 1: 'peito', 2: 'costas', 3: 'pernas', 4: 'ombros', 5: 'bracos', 6: 'pernas' };
+        const hoje = new Date().getDay();
+        const muscleToday = treinos[hoje];
+        
+        if (muscleToday === 'Descanso') {
+            document.getElementById('muscle-today').textContent = 'Hoje e dia de descanso!';
+        } else {
+            const nomes = { peito: 'Peito', costas: 'Costas', pernas: 'Pernas', ombros: 'Ombros', bracos: 'Bracos' };
+            document.getElementById('muscle-today').textContent = nomes[muscleToday] || muscleToday;
+            document.getElementById('treino-hoje').onclick = () => window.location.href = `/treino/${muscleToday}`;
+        }
+    </script>
+</body>
+</html>
