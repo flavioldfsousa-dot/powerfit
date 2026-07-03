@@ -529,7 +529,7 @@ object AssistenteIA {
         )
 
         val exercicioEncontrado = exercicios.entries.firstOrNull { (chave, _) ->
-            p.contains(chave)
+            pergunta.contains(chave)
         }
 
         return if (exercicioEncontrado != null) {
@@ -1361,7 +1361,7 @@ object AssistenteIA {
         val mapa = mapOf(
             Calendar.MONDAY to "Segunda",
             Calendar.TUESDAY to "Terca",
-            Calendar.WEDNESNESS to "Quarta",
+            Calendar.WEDNESDAY to "Quarta",
             Calendar.THURSDAY to "Quinta",
             Calendar.FRIDAY to "Sexta",
             Calendar.SATURDAY to "Sabado"
