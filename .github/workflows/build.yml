@@ -27,31 +27,46 @@ jobs:
           unzip -q gradle-8.5-bin.zip
           echo "$PWD/gradle-8.5/bin" >> $GITHUB_PATH
 
-      - name: Build APK
-        run: gradle assembleDebug
+      - name: Generate Keystore
+        run: |
+          keytool -genkey -v \
+            -keystore app/release-key.jks \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -alias zentroxfit \
+            -storepass zentroxfit2026 \
+            -keypass zentroxfit2026 \
+            -dname "CN=Zentrox Fit, OU=Dev, O=Zentrox, L=SP, ST=SP, C=BR"
+
+      - name: Build Release APK
+        run: gradle assembleRelease
 
       - name: Copy APK to root
-        run: cp app/build/outputs/apk/debug/app-debug.apk ./ZentroxFit.apk
+        run: cp app/build/outputs/apk/release/app-release.apk ./ZentroxFit.apk
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: zentroxfit-apk
-          path: ZentroxFit.apk
+      - name: Delete old releases
+        run: |
+          gh release list --repo flavioldfsousa-dot/powerfit --limit 5 --json tagName -q '.[].tagName' | while read tag; do
+            gh release delete "$tag" --repo flavioldfsousa-dot/powerfit -y 2>/dev/null || true
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.0.${{ github.run_number }}
-          name: Zentrox Fit v2.0.${{ github.run_number }}
+          tag_name: v2.1.${{ github.run_number }}
+          name: Zentrox Fit v2.1.${{ github.run_number }}
           body: |
-            Zentrox Fit - App de Treinos para Android
+            Zentrox Fit v2.1 - APK Release Assinado
 
-            Como instalar:
-            1. Baixe o arquivo ZentroxFit.apk
-            2. No celular va em Configuracoes > Seguranca
-            3. Ative "Fontes desconhecidas"
-            4. Abra o arquivo APK e instale
+            COMO INSTALAR:
+            1. BAIXE o arquivo ZentroxFit.apk (nao o PowerFit.apk antigo!)
+            2. No celular, va em Configuracoes > Seguranca
+            3. Ative "Fontes desconhecidas" ou "Permitir apps desconhecidos"
+            4. Abra o arquivo ZentroxFit.apk e instale
+            5. Se pedir, clique em "Instalar mesmo assim"
+
+            IMPORTANTE: Delete qualquer APK antigo chamado PowerFit.apk
           files: ZentroxFit.apk
           draft: false
           prerelease: false

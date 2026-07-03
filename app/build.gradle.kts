@@ -11,13 +11,23 @@ android {
         applicationId = "com.powerfit.app"
         minSdk = 24
         targetSdk = 34
-        versionCode = 20
-        versionName = "2.0.1"
+        versionCode = 30
+        versionName = "2.1.0"
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("release-key.jks")
+            storePassword = "zentroxfit2026"
+            keyAlias = "zentroxfit"
+            keyPassword = "zentroxfit2026"
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
